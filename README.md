@@ -1,4 +1,4 @@
-# Polish Station OS — Full Feature Map
+# Polish Station POS — Full Feature Map
 
 A complete tour of everything the Polish Station point-of-sale / shop-management system does, module by module, with the flows between them.
 
