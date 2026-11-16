@@ -8,17 +8,17 @@ This guide reflects the actual code in this repository as of this audit. Where s
 
 ## 1. Codebase analysis
 
-| Layer           | Technology                                                             | Notes                                                                                                                                                           |
-| --------------- | ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Frontend        | React 19 + TanStack Router, SSR'd                                      | Built by Vite 8 into `dist/client` (static assets)                                                                                                              |
-| Backend         | TanStack Start (Nitro/h3)                                              | Built into `dist/server/server.js`, a `fetch`-style handler                                                                                                     |
-| Server entry    | `start.mjs` (plain Node `http` server)                                 | Loads the SSR handler, serves `dist/client` static files directly, sets security headers                                                                        |
-| Database        | **Firebase Firestore** (no SQL)                                        | Real-time listeners (`onSnapshot`) in `src/store.tsx`; no ORM, no migrations in the SQL sense                                                                   |
-| Auth            | Firebase Auth + custom tokens                                          | PIN checked server-side (`bcryptjs`) against Firestore `staff` docs, then a Firebase custom token is minted (`src/server/auth.ts`)                              |
+| Layer           | Technology                                                             | Notes                                                                                                                                                          |
+| --------------- | ---------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Frontend        | React 19 + TanStack Router, SSR'd                                      | Built by Vite 8 into `dist/client` (static assets)                                                                                                             |
+| Backend         | TanStack Start (Nitro/h3)                                              | Built into `dist/server/server.js`, a `fetch`-style handler                                                                                                    |
+| Server entry    | `start.mjs` (plain Node `http` server)                                 | Loads the SSR handler, serves `dist/client` static files directly, sets security headers                                                                       |
+| Database        | **Firebase Firestore** (no SQL)                                        | Real-time listeners (`onSnapshot`) in `src/store.tsx`; no ORM, no migrations in the SQL sense                                                                  |
+| Auth            | Firebase Auth + custom tokens                                          | PIN checked server-side (`bcryptjs`) against Firestore `staff` docs, then a Firebase custom token is minted (`src/server/auth.ts`)                             |
 | File storage    | **Firebase Storage** (client SDK, direct browser upload)               | No server-side upload directory or disk storage is used; see `storage.rules` (job photos, 5MB cap, image only)                                                 |
 | Process manager | **Phusion Passenger** (via cPanel Node.js Selector)                    | Not PM2: shared cPanel hosting gives no root/systemd access, so Passenger (built into Apache/LiteSpeed via `mod_passenger`) is the only option cPanel supports |
-| CI/CD           | GitHub Actions → cPanel UAPI `VersionControl/update`                   | `.github/workflows/deploy.yml`                                                                                                                                  |
-| Node version    | **20** (`.nvmrc`, `package.json engines`, `.cpanel.yml` nodevenv path) |                                                                                                                                                                 |
+| CI/CD           | GitHub Actions → cPanel UAPI `VersionControl/update`                   | `.github/workflows/deploy.yml`                                                                                                                                 |
+| Node version    | **20** (`.nvmrc`, `package.json engines`, `.cpanel.yml` nodevenv path) |                                                                                                                                                                |
 | Package manager | **npm** (`package-lock.json`)                                          | `bun.lock`/`bunfig.toml` are leftover from initial scaffolding and are **not** used by any deploy path; see note in §16                                        |
 
 **No traditional relational database, no upload directory, no Redis/session store, no PM2/Docker are needed.** This significantly simplifies the cPanel deployment compared to a typical Node app.
@@ -57,24 +57,24 @@ No other application code was changed: auth, Firestore rules, and the data layer
 
 All variables live in **one `.env` file** placed directly in the cPanel application root (`/home/polishst/pos.polishstation.lk/.env`). It is **never** deployed via Git (it's gitignored); you create/update it manually over SFTP or the cPanel File Manager.
 
-| Variable                            | Used where                            | Used when                                                           |
-| ----------------------------------- | ------------------------------------- | ------------------------------------------------------------------- |
-| `VITE_FIREBASE_API_KEY`             | client bundle                         | **build time** (inlined by Vite)                                    |
-| `VITE_FIREBASE_AUTH_DOMAIN`         | client bundle                         | build time                                                          |
-| `VITE_FIREBASE_PROJECT_ID`          | client bundle                         | build time                                                          |
-| `VITE_FIREBASE_STORAGE_BUCKET`      | client bundle                         | build time                                                          |
-| `VITE_FIREBASE_MESSAGING_SENDER_ID` | client bundle                         | build time                                                          |
-| `VITE_FIREBASE_APP_ID`              | client bundle                         | build time                                                          |
-| `FIREBASE_PROJECT_ID`               | `src/server/firebase-admin.ts`        | **runtime** (server process)                                        |
-| `FIREBASE_CLIENT_EMAIL`             | `src/server/firebase-admin.ts`        | runtime                                                             |
-| `FIREBASE_PRIVATE_KEY`              | `src/server/firebase-admin.ts`        | runtime; keep the literal `\n` sequences, the code un-escapes them |
-| `VITE_SENTRY_DSN`                   | `src/lib/error-reporting.ts`          | build time (optional, Sentry activates only if set)                 |
-| `SENTRY_DSN`                        | not currently read anywhere in `src/` | reserved/unused, safe to leave blank                               |
-| `RESEND_API_KEY`                    | `src/server/public-api.ts`            | runtime; optional — new-lead email alert is skipped if blank        |
-| `LEADS_NOTIFY_EMAIL`                | `src/server/public-api.ts`            | runtime; studio inbox that receives the alert above                 |
+| Variable                            | Used where                                 | Used when                                                           |
+| ----------------------------------- | ------------------------------------------ | ------------------------------------------------------------------- |
+| `VITE_FIREBASE_API_KEY`             | client bundle                              | **build time** (inlined by Vite)                                    |
+| `VITE_FIREBASE_AUTH_DOMAIN`         | client bundle                              | build time                                                          |
+| `VITE_FIREBASE_PROJECT_ID`          | client bundle                              | build time                                                          |
+| `VITE_FIREBASE_STORAGE_BUCKET`      | client bundle                              | build time                                                          |
+| `VITE_FIREBASE_MESSAGING_SENDER_ID` | client bundle                              | build time                                                          |
+| `VITE_FIREBASE_APP_ID`              | client bundle                              | build time                                                          |
+| `FIREBASE_PROJECT_ID`               | `src/server/firebase-admin.ts`             | **runtime** (server process)                                        |
+| `FIREBASE_CLIENT_EMAIL`             | `src/server/firebase-admin.ts`             | runtime                                                             |
+| `FIREBASE_PRIVATE_KEY`              | `src/server/firebase-admin.ts`             | runtime; keep the literal `\n` sequences, the code un-escapes them  |
+| `VITE_SENTRY_DSN`                   | `src/lib/error-reporting.ts`               | build time (optional, Sentry activates only if set)                 |
+| `SENTRY_DSN`                        | not currently read anywhere in `src/`      | reserved/unused, safe to leave blank                                |
+| `RESEND_API_KEY`                    | `src/server/public-api.ts`                 | runtime; optional — new-lead email alert is skipped if blank        |
+| `LEADS_NOTIFY_EMAIL`                | `src/server/public-api.ts`                 | runtime; studio inbox that receives the alert above                 |
 | `GOOGLE_ADS_LEAD_WEBHOOK_KEY`       | `src/routes/api.public.google-leadform.ts` | runtime; shared secret configured in the Google Ads lead form asset |
-| `STAFF_PIN_s1`…`STAFF_PIN_s9`       | `scripts/seed-staff.ts` only          | **one-time seed script**, not read by the running app               |
-| `PORT`                              | `start.mjs`                           | runtime; Passenger sets this automatically, don't set it yourself  |
+| `STAFF_PIN_s1`…`STAFF_PIN_s9`       | `scripts/seed-staff.ts` only               | **one-time seed script**, not read by the running app               |
+| `PORT`                              | `start.mjs`                                | runtime; Passenger sets this automatically, don't set it yourself   |
 
 **Because `VITE_*` vars are baked in at build time**, and the build runs _on the server_ (`.cpanel.yml` → `npm run build`), the `.env` file must exist **before the first deploy**; this is now enforced by a hard check in `.cpanel.yml`.
 
@@ -82,13 +82,13 @@ All variables live in **one `.env` file** placed directly in the cPanel applicat
 
 Repo → Settings → Secrets and variables → Actions:
 
-| Secret                                                                                                                                                                        | Used by                                                                                                                            |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Secret                                                                                                                                                                        | Used by                                                                                                                           |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_AUTH_DOMAIN`, `VITE_FIREBASE_PROJECT_ID`, `VITE_FIREBASE_STORAGE_BUCKET`, `VITE_FIREBASE_MESSAGING_SENDER_ID`, `VITE_FIREBASE_APP_ID` | `deploy.yml` → `validate` job (build check only, doesn't affect the real server build)                                            |
-| `CPANEL_USERNAME`                                                                                                                                                             | `deploy.yml` → cPanel UAPI trigger                                                                                                 |
-| `CPANEL_TOKEN`                                                                                                                                                                | cPanel API token (create in cPanel → Security → Manage API Tokens)                                                                 |
-| `CPANEL_DOMAIN`                                                                                                                                                               | cPanel hostname used for the UAPI call, e.g. `server.zirconhosting.com`                                                            |
-| `FIREBASE_PROJECT_ID`                                                                                                                                                         | `firebase-deploy.yml`                                                                                                              |
+| `CPANEL_USERNAME`                                                                                                                                                             | `deploy.yml` → cPanel UAPI trigger                                                                                                |
+| `CPANEL_TOKEN`                                                                                                                                                                | cPanel API token (create in cPanel → Security → Manage API Tokens)                                                                |
+| `CPANEL_DOMAIN`                                                                                                                                                               | cPanel hostname used for the UAPI call, e.g. `server.zirconhosting.com`                                                           |
+| `FIREBASE_PROJECT_ID`                                                                                                                                                         | `firebase-deploy.yml`                                                                                                             |
 | `FIREBASE_SERVICE_ACCOUNT_JSON`                                                                                                                                               | `firebase-deploy.yml`: paste the full JSON from Firebase Console → Project Settings → Service Accounts → Generate new private key |
 
 ---
@@ -327,7 +327,7 @@ Recommended additions for go-live:
 | GitHub Actions `deploy` job succeeds but nothing changes on the server        | `CPANEL_TOKEN`/`CPANEL_USERNAME`/`CPANEL_DOMAIN` secrets wrong, or Git Version Control repo not pointed at the right path  | Test the UAPI call manually with `curl`, check cPanel → Git Version Control shows the pull actually landed                                                                            |
 | Firestore permission-denied errors after a rules change                       | `firebase-deploy.yml` didn't run (file path filter didn't match) or `FIREBASE_SERVICE_ACCOUNT_JSON` secret invalid/expired | Check the Action run logs; deploy manually with `firebase deploy --only firestore:rules,storage` as a stopgap                                                                         |
 | Sitemap/SEO tools flag bad URLs                                               | `BASE_URL` in `sitemap[.]xml.ts` reverted or domain changed                                                                | Confirm it matches the live hostname                                                                                                                                                  |
-| All staff PINs reset unexpectedly                                             | `npm run seed:staff` was re-run in production                                                                              | Don't re-run it after go-live (see §4); restore correct PINs via the in-app Admin/Manager reset flow                                                                                 |
+| All staff PINs reset unexpectedly                                             | `npm run seed:staff` was re-run in production                                                                              | Don't re-run it after go-live (see §4); restore correct PINs via the in-app Admin/Manager reset flow                                                                                  |
 
 ---
 

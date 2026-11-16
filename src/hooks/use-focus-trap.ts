@@ -7,7 +7,7 @@ const FOCUSABLE_SELECTOR =
  *  Escape, and returns focus to whatever was focused before the modal
  *  opened once it closes/unmounts. For hand-rolled overlay modals that
  *  aren't built on Radix Dialog (which gets this for free) — see
- *  UI_UX_AUDIT.md "Keyboard Navigation" for which ones needed it. */
+ *  docs/audits/ui-ux-audit.md "Keyboard Navigation" for which ones needed it. */
 export function useFocusTrap<T extends HTMLElement>(active: boolean, onClose: () => void) {
   const containerRef = useRef<T>(null);
   const onCloseRef = useRef(onClose);

@@ -50,7 +50,7 @@ const BookingSchema = z
       .regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid date"),
     // Optional, not required: the site doesn't send this yet (its
     // "Preferred time" picker still gets appended to `notes` client-side
-    // instead -- see docs/marketing-site-booking-prompt.md). Making this
+    // instead -- see docs/integrations/marketing-site-booking.md). Making this
     // required before the site actually sends it would fail every real
     // submission outright, the exact bug b4d95c6 just fixed for
     // services/preferredDate.

@@ -104,19 +104,19 @@ to un-convert or un-duplicate a lead (by design — those are terminal).
 
 ## 3. Actions available on a lead (from the Leads page)
 
-| Action | What it does | Where |
-|---|---|---|
-| **Mark Contacted** | `new`/etc. → `contacted` | Row action |
-| **Mark Quoted** | Opens dialog for amount (LKR) + optional valid-until date → status `quoted` | `QuoteDialog` |
-| **Mark Lost** | Requires picking a lost reason (see §4) → status `lost` | `LostDialog` / bulk `BulkLostDialog` |
-| **Mark Duplicate** | Search + link to another open lead → status `duplicate` | `DuplicateDialog` |
-| **Assign to staff** | Sets owner; single or bulk | Owner dropdown |
-| **Archive** | → status `archived` (reversible via Restore) | Row action / bulk |
-| **Edit fields** | Inline edit of name/phone/vehicle/service/etc. | `EditableFields` |
-| **Add note** | Free-text note, logged only as a timeline event (not stored on the lead doc) | Detail panel |
-| **Mark as Test** | Bulk-flags leads so they're excluded from metrics/counts | Bulk action |
-| **WhatsApp quick-send** | Pre-written message templates, opens `wa.me` link — no status change | Detail panel |
-| **Convert** | Opens chooser: Booking / Job / Link to invoice (see §5) | `ConvertChooserDialog` |
+| Action                  | What it does                                                                 | Where                                |
+| ----------------------- | ---------------------------------------------------------------------------- | ------------------------------------ |
+| **Mark Contacted**      | `new`/etc. → `contacted`                                                     | Row action                           |
+| **Mark Quoted**         | Opens dialog for amount (LKR) + optional valid-until date → status `quoted`  | `QuoteDialog`                        |
+| **Mark Lost**           | Requires picking a lost reason (see §4) → status `lost`                      | `LostDialog` / bulk `BulkLostDialog` |
+| **Mark Duplicate**      | Search + link to another open lead → status `duplicate`                      | `DuplicateDialog`                    |
+| **Assign to staff**     | Sets owner; single or bulk                                                   | Owner dropdown                       |
+| **Archive**             | → status `archived` (reversible via Restore)                                 | Row action / bulk                    |
+| **Edit fields**         | Inline edit of name/phone/vehicle/service/etc.                               | `EditableFields`                     |
+| **Add note**            | Free-text note, logged only as a timeline event (not stored on the lead doc) | Detail panel                         |
+| **Mark as Test**        | Bulk-flags leads so they're excluded from metrics/counts                     | Bulk action                          |
+| **WhatsApp quick-send** | Pre-written message templates, opens `wa.me` link — no status change         | Detail panel                         |
+| **Convert**             | Opens chooser: Booking / Job / Link to invoice (see §5)                      | `ConvertChooserDialog`               |
 
 Every transition is gated by `isLegalLeadTransition()` — illegal actions simply
 aren't shown as options in the UI.
@@ -127,14 +127,14 @@ aren't shown as options in the UI.
 
 Fixed set (`LOST_REASONS`, `src/lib/db.ts`):
 
-| Value | Label shown to staff |
-|---|---|
-| `price` | Price |
-| `timing` | Timing didn't work |
-| `distance` | Too far / distance |
-| `no_response` | Customer stopped responding |
-| `out_of_scope` | Out of scope for us |
-| `duplicate` | Duplicate of another lead |
+| Value          | Label shown to staff        |
+| -------------- | --------------------------- |
+| `price`        | Price                       |
+| `timing`       | Timing didn't work          |
+| `distance`     | Too far / distance          |
+| `no_response`  | Customer stopped responding |
+| `out_of_scope` | Out of scope for us         |
+| `duplicate`    | Duplicate of another lead   |
 
 ---
 
@@ -142,7 +142,7 @@ Fixed set (`LOST_REASONS`, `src/lib/db.ts`):
 
 - `QuoteDialog` collects **amount (LKR, required)** and an **optional valid-until date**.
 - Confirming sets status → `quoted`, stamps `firstResponseAt` if this is the first
-  response, and logs a timeline event like *"Quoted 25,000 · valid until 2026-09-20"*.
+  response, and logs a timeline event like _"Quoted 25,000 · valid until 2026-09-20"_.
 - **There is no separate accept/reject step.** A quoted lead just proceeds through
   the normal actions — either **Convert** (customer accepted) or **Mark Lost**
   (customer declined/ghosted). There's no standalone quote document.
@@ -182,7 +182,7 @@ All filter state lives in the URL (shareable/bookmarkable):
 ## 8. Notifications / integrations today
 
 - New leads from the **public website** (booking or contact form) trigger a Resend
-  email to a configured staff inbox address. This is the *only* automated notification.
+  email to a configured staff inbox address. This is the _only_ automated notification.
 - **No automated SMS/WhatsApp** on lead creation or status change — WhatsApp is
   manual, staff-triggered template links only.
 - **No CRM sync or outbound webhooks** exist for leads.
@@ -216,6 +216,7 @@ flowchart LR
 - Lands as `type: "contact"`, `source: "google_ads"` — shows up in the Leads list with a Google Ads label/icon and can be filtered like any other source.
 
 **What you still need to do on Google's side** (I can't do this part — it needs your Google Ads account access):
+
 1. Pick (or generate) a long random secret string and set it as `GOOGLE_ADS_LEAD_WEBHOOK_KEY` in the server's `.env`, then redeploy.
 2. In Google Ads: **Assets → Lead form asset → Edit → Delivery options → Webhook integration**.
 3. Webhook URL: `https://<your-production-domain>/api/public/google-leadform`

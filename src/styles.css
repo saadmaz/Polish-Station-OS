@@ -110,7 +110,7 @@
      directly (StatusChip translucent variants, "Paid"/"Issued" stamps, plain
      status copy) they ranged 2.04:1-3.87:1. Same hue/chroma, lightness only,
      to stay in the same success/warning/info hue family. See
-     UI_UX_AUDIT.md "Color Contrast" for the full before/after. */
+     docs/audits/ui-ux-audit.md "Color Contrast" for the full before/after. */
   --success: oklch(0.47 0.16 145);
   --success-foreground: oklch(0.99 0 0);
   --warning: oklch(0.54 0.15 75);
