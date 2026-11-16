@@ -1,7 +1,7 @@
 {
   "name": "polish-station-pos",
   "version": "1.0.0",
-  "description": "Point-of-sale and shop-management platform for Polish Station: bookings, inspections, jobs, checkout, inventory, staff and reporting.",
+  "description": "Point-of-sale and shop-management platform for Polish Station: bookings, inspections, jobs, checkout, inventory and staff.",
   "homepage": "https://github.com/saadmaz/Polish-Station-POS#readme",
   "repository": {
     "type": "git",
@@ -13,12 +13,12 @@
   "author": "Saad Mazhar (https://github.com/saadmaz)",
   "license": "UNLICENSED",
   "private": true,
-  "main": "start.mjs",
-  "sideEffects": false,
-  "type": "module",
   "engines": {
     "node": ">=22.0.0"
   },
+  "type": "module",
+  "main": "start.mjs",
+  "sideEffects": false,
   "scripts": {
     "dev": "vite dev",
     "build": "node scripts/write-build-id.mjs && vite build && node scripts/bundle-server.mjs",

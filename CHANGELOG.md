@@ -28,8 +28,9 @@ First versioned release of Polish Station POS, covering everything in production
 - Accessibility: focus-trapped modals, keyboard navigation, WCAG AA contrast fixes and Enter-to-submit on every form.
 - Error reporting with Sentry and lead notification email with Resend.
 - Automated FTPS deployment with Passenger restart and warm-up, rules deployment, keep-warm and server maintenance workflows.
-- Pull request CI: lint, formatting, type check, unit tests and build.
+- Continuous integration on every push and pull request: lint, formatting, type check, unit tests and build.
 - Project governance: proprietary licence, security policy, contribution guidelines, code of conduct, issue forms, pull request template, CODEOWNERS and Dependabot.
+- Standard documentation layout shared by every STTPS repository: architecture, configuration, deployment, decision records (ADRs) and release and rollback runbooks, indexed in `docs/README.md`.
 
 ### Changed
 

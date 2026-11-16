@@ -2,17 +2,16 @@
 
 # Polish Station POS
 
-**Point-of-sale and shop-management platform for Polish Station, a premium automotive detailing studio.**
+**Point-of-sale and shop-management platform for Polish Station.**
 
 Bookings, check-in, inspections, jobs, checkout, invoicing, inventory, purchasing, staff and reporting, live across every till.
 
-[![Deploy](https://github.com/saadmaz/Polish-Station-POS/actions/workflows/deploy.yml/badge.svg)](https://github.com/saadmaz/Polish-Station-POS/actions/workflows/deploy.yml)
+[![App](https://img.shields.io/badge/app-pos.polishstation.lk-374151?style=flat-square&labelColor=111827)](https://www.pos.polishstation.lk)
 [![CI](https://github.com/saadmaz/Polish-Station-POS/actions/workflows/ci.yml/badge.svg)](https://github.com/saadmaz/Polish-Station-POS/actions/workflows/ci.yml)
-[![Release](https://img.shields.io/github/v/release/saadmaz/Polish-Station-POS?style=flat-square&labelColor=0B0B0B&color=C9A227)](https://github.com/saadmaz/Polish-Station-POS/releases)
-![Node](https://img.shields.io/badge/node-22-0B0B0B?style=flat-square)
-![License](https://img.shields.io/badge/license-proprietary-0B0B0B?style=flat-square)
+[![Version](https://img.shields.io/badge/version-v1.0.0-374151?style=flat-square&labelColor=111827)](https://github.com/saadmaz/Polish-Station-POS/releases)
+![License](https://img.shields.io/badge/license-proprietary-374151?style=flat-square&labelColor=111827)
 
-[Feature map](docs/FEATURES.md) · [Deployment guide](docs/DEPLOYMENT.md) · [Report a bug](https://github.com/saadmaz/Polish-Station-POS/issues/new?template=bug_report.yml)
+[**pos.polishstation.lk**](https://www.pos.polishstation.lk) · [Documentation](docs/README.md) · [Report a bug](https://github.com/saadmaz/Polish-Station-POS/issues/new?template=bug_report.yml) · [Request a change](https://github.com/saadmaz/Polish-Station-POS/issues/new?template=feature_request.yml)
 
 </div>
 
@@ -21,7 +20,7 @@ Bookings, check-in, inspections, jobs, checkout, invoicing, inventory, purchasin
 ## Contents
 
 - [About](#about)
-- [Modules](#modules)
+- [Features](#features)
 - [Architecture](#architecture)
 - [Tech stack](#tech-stack)
 - [Getting started](#getting-started)
@@ -39,14 +38,15 @@ Bookings, check-in, inspections, jobs, checkout, invoicing, inventory, purchasin
 
 Polish Station POS runs the day-to-day operation of the Polish Station detailing studio in Dehiwala, Sri Lanka. Staff use it on shared tills to take bookings, check vehicles in, record inspections, run jobs, take payment and manage stock, while the website feeds it leads, bookings and subscribers through a public intake API.
 
-|                  |                                                                       |
-| ---------------- | --------------------------------------------------------------------- |
-| **Organisation** | Polish Station (Pvt) Ltd                                              |
-| **Production**   | [pos.polishstation.lk](https://www.pos.polishstation.lk) (staff only) |
-| **Contact**      | [info@polishstation.lk](mailto:info@polishstation.lk)                 |
-| **Maintainer**   | [Saad Mazhar](https://github.com/saadmaz)                             |
+|                  |                                                          |
+| ---------------- | -------------------------------------------------------- |
+| **Organisation** | Polish Station (Pvt) Ltd                                 |
+| **Status**       | Live                                                     |
+| **Production**   | [pos.polishstation.lk](https://www.pos.polishstation.lk) |
+| **Contact**      | [info@polishstation.lk](mailto:info@polishstation.lk)    |
+| **Maintainer**   | [Saad Mazhar](https://github.com/saadmaz)                |
 
-## Modules
+## Features
 
 | Module                               | What it does                                                                                                                                                           |
 | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -68,21 +68,9 @@ Access is controlled on two axes carried in the Firebase ID token: a **role** (`
 
 ## Architecture
 
-```mermaid
-flowchart LR
-  Tills(["Staff tills<br/>browser"]) -- Firebase Auth + live listeners --> Firestore[("Cloud Firestore")]
-  Tills --> App["TanStack Start app<br/>Node 22 on Passenger"]
-  Website["polishstation.lk"] -- "/api/public/*" --> App
-  GoogleAds["Google Ads lead forms"] -- webhook --> App
-  App -- firebase-admin --> Firestore
-  App -- notifications --> Resend["Resend email"]
-  Tills -. errors .-> Sentry["Sentry"]
-```
+A TanStack Start application on Node.js 22 under Passenger, with Cloud Firestore as the single source of truth. Every screen is a live listener, staff sign in client-side against Firebase Auth, and Firestore rules enforce roles and per-module permissions at the data layer. Public endpoints accept submissions from the website and ad platforms.
 
-- **Firestore is the single source of truth.** Every screen is a live listener, so every till sees changes from every other till in real time.
-- **Sign-in is client-side** against Firebase Auth, with no server round trip on login. Deactivating or demoting a user revokes their session immediately.
-- **Security rules** in [`firestore.rules`](firestore.rules) and [`storage.rules`](storage.rules) enforce roles and permissions at the data layer, with emulator-based rules tests.
-- **Public intake endpoints** (`/api/public/booking`, `/contact`, `/newsletter`, `/google-leadform`) accept submissions from the website and ad platforms.
+The full picture, with diagrams, is in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). Significant decisions are recorded as [ADRs](docs/adr/README.md).
 
 ## Tech stack
 
@@ -137,16 +125,9 @@ Vite prints the local address when the server starts. Point `VITE_FIREBASE_*` at
 
 ## Configuration
 
-Copy [`.env.example`](.env.example) to `.env`. Never commit `.env`.
+Firebase web config, the server's service account, Resend, Sentry, the Google Ads webhook key and the bootstrap SuperAdmin are set in `.env`. Business settings are managed in the app under **Settings**.
 
-| Variable                                                               | Purpose                                                                    |
-| ---------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `VITE_FIREBASE_*`                                                      | Firebase web app config (public identifiers compiled into the client)      |
-| `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL`, `FIREBASE_PRIVATE_KEY` | Service account for `firebase-admin` on the server. **Secret**             |
-| `VITE_SENTRY_DSN`                                                      | Sentry error reporting                                                     |
-| `RESEND_API_KEY`, `LEADS_NOTIFY_EMAIL`                                 | Lead notification email. **Secret**                                        |
-| `GOOGLE_ADS_LEAD_WEBHOOK_KEY`                                          | Shared key that authenticates the Google Ads lead-form webhook. **Secret** |
-| `SUPERADMIN_USERNAME`, `SUPERADMIN_PIN`                                | Bootstrap SuperAdmin used by `seed:admin`. **Secret**                      |
+Every variable, where it is set and which are secret: [docs/CONFIGURATION.md](docs/CONFIGURATION.md).
 
 ## Project structure
 
@@ -171,47 +152,35 @@ Copy [`.env.example`](.env.example) to `.env`. Never commit `.env`.
 
 ## Quality checks
 
-Pull requests into `main` run the [CI workflow](.github/workflows/ci.yml): lint, formatting, type check, unit tests and a production build. Run the same checks locally before opening a pull request:
+Every push and pull request to `main` runs the [CI workflow](.github/workflows/ci.yml): lint, formatting, type check, unit tests and a production build. Run the same checks locally before opening a pull request:
 
 ```sh
 npm run lint && npm run format:check && npm run typecheck && npm test && npm run build
 ```
 
-Run `npm run test:rules` whenever `firestore.rules` changes.
-
 ## Deployment
 
-Every push to `main` deploys to production through [`deploy.yml`](.github/workflows/deploy.yml):
+Every push to `main` builds on GitHub Actions, uploads a bundled server over FTPS and restarts Passenger. Firestore rules and indexes deploy separately when they change.
 
-1. Install, type-check and build on GitHub Actions, with the Firebase web config from repository secrets.
-2. Assemble a self-contained deploy package (the server is bundled, so no `node_modules` are uploaded).
-3. Upload over FTPS with `lftp`, with retries.
-4. Restart the app through Passenger's `tmp/restart.txt`, warm it up and run post-deploy diagnostics.
-
-Firestore and Storage rules and indexes deploy separately through [`firebase-deploy.yml`](.github/workflows/firebase-deploy.yml) when those files change. [`keep-warm.yml`](.github/workflows/keep-warm.yml) keeps the app responsive between visits.
-
-| Secret                                                 | Purpose                            |
-| ------------------------------------------------------ | ---------------------------------- |
-| `VITE_FIREBASE_*`                                      | Firebase web config for the build  |
-| `FTP_HOST`, `FTP_USERNAME`, `FTP_PASSWORD`             | FTPS upload to the hosting account |
-| `FIREBASE_PROJECT_ID`, `FIREBASE_SERVICE_ACCOUNT_JSON` | Rules and index deployment         |
-
-The server-side `.env` lives only on the host. The full runbook, including first-time server setup, zero-downtime behaviour and rollback, is in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+Setup, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). To release or roll back, follow the [runbooks](docs/runbooks/README.md).
 
 ## Documentation
 
-| Document                                                            | Covers                                                            |
-| ------------------------------------------------------------------- | ----------------------------------------------------------------- |
-| [FEATURES.md](docs/FEATURES.md)                                     | Every module, role and flow, with diagrams                        |
-| [DEPLOYMENT.md](docs/DEPLOYMENT.md)                                 | Hosting, environment, pipeline, zero-downtime and rollback        |
-| [booking-rules-requirements.md](docs/booking-rules-requirements.md) | Booking rules and capacity                                        |
-| [lead-lifecycle.md](docs/lead-lifecycle.md)                         | How leads move from intake to customer                            |
-| [integrations/](docs/integrations)                                  | Contracts for the website's booking, contact and newsletter forms |
-| [audits/ui-ux-audit.md](docs/audits/ui-ux-audit.md)                 | Responsive, contrast, keyboard and form-submission audit          |
+All documentation lives in [`docs/`](docs/README.md), using the same layout in every STTPS repository.
+
+| Document                                  | Covers                                              |
+| ----------------------------------------- | --------------------------------------------------- |
+| [ARCHITECTURE.md](docs/ARCHITECTURE.md)   | How the system is built and how data flows          |
+| [CONFIGURATION.md](docs/CONFIGURATION.md) | Environment variables and configuration files       |
+| [DEPLOYMENT.md](docs/DEPLOYMENT.md)       | Hosting, the delivery pipeline and first-time setup |
+| [adr/](docs/adr/README.md)                | Architecture decision records                       |
+| [runbooks/](docs/runbooks/README.md)      | Release and rollback procedures                     |
+
+Product and reference documents for this project are listed in the [documentation index](docs/README.md).
 
 ## Releases and versioning
 
-The project follows [Semantic Versioning](https://semver.org). Each release is tagged `vX.Y.Z` and published on the [Releases](https://github.com/saadmaz/Polish-Station-POS/releases) page. Notable changes are recorded in [CHANGELOG.md](CHANGELOG.md).
+The project follows [Semantic Versioning](https://semver.org). Each release is tagged `vX.Y.Z` and published on the [Releases](https://github.com/saadmaz/Polish-Station-POS/releases) page. Notable changes are recorded in [CHANGELOG.md](CHANGELOG.md), and the release procedure is in [docs/runbooks/release.md](docs/runbooks/release.md).
 
 ## Contributing
 

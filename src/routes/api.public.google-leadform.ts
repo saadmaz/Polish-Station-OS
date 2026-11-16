@@ -14,7 +14,7 @@ import { sendLeadAlert } from "@/server/public-api";
 // Configure in Google Ads: the Lead form asset's delivery options ->
 // Webhook integration -> this route's full URL + a secret key, which must
 // match GOOGLE_ADS_LEAD_WEBHOOK_KEY in this app's env. See
-// docs/lead-lifecycle.md for the end-to-end setup procedure.
+// docs/LEAD-LIFECYCLE.md for the end-to-end setup procedure.
 
 const ColumnSchema = z.object({
   column_id: z.string(),
