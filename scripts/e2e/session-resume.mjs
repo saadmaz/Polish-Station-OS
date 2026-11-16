@@ -36,7 +36,8 @@ await check("login creates an HttpOnly/Secure/Lax session cookie", async () => {
   if (!cookie) throw new Error("no ps_session cookie after login");
   if (!cookie.httpOnly) throw new Error("ps_session is not HttpOnly");
   if (!cookie.secure) throw new Error("ps_session is not Secure");
-  if (cookie.sameSite !== "Lax") throw new Error(`ps_session sameSite is ${cookie.sameSite}, want Lax`);
+  if (cookie.sameSite !== "Lax")
+    throw new Error(`ps_session sameSite is ${cookie.sameSite}, want Lax`);
 });
 
 let tokenHash;

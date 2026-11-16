@@ -742,100 +742,102 @@ function Bookings() {
 
               {/* Tablet/desktop: hour grid */}
               <div className="hidden overflow-x-auto md:block">
-              <div className="grid grid-cols-[60px_repeat(7,minmax(100px,1fr))] divide-x divide-border min-w-[760px]">
-                <div>
-                  <div className="h-10 border-b border-border" />
-                  {HOURS.map((h) => (
-                    <div
-                      key={h}
-                      className="h-14 border-b border-border px-2 py-1 text-[11px] font-mono text-muted-foreground"
-                    >
-                      {String(h).padStart(2, "0")}:00
-                    </div>
-                  ))}
-                </div>
-                {weekDates.map((date) => {
-                  const dayBookings = bookings.filter((b) => b.date === date);
-                  const isToday = date === todayBusinessDate();
-                  return (
-                    <div key={date} className="relative">
+                <div className="grid grid-cols-[60px_repeat(7,minmax(100px,1fr))] divide-x divide-border min-w-[760px]">
+                  <div>
+                    <div className="h-10 border-b border-border" />
+                    {HOURS.map((h) => (
                       <div
-                        className={cn(
-                          "h-10 border-b border-border px-3 py-2 text-xs font-semibold uppercase tracking-wider",
-                          isToday
-                            ? "bg-primary/10 text-primary"
-                            : "bg-muted/40 text-muted-foreground",
-                        )}
+                        key={h}
+                        className="h-14 border-b border-border px-2 py-1 text-[11px] font-mono text-muted-foreground"
                       >
-                        {new Date(date + "T00:00:00").toLocaleDateString([], {
-                          weekday: "short",
-                          day: "numeric",
-                        })}
+                        {String(h).padStart(2, "0")}:00
                       </div>
-                      <div className="relative">
-                        {HOURS.map((h) => (
-                          <div key={h} className="h-14 border-b border-border" />
-                        ))}
-                        {layoutOverlaps(
-                          dayBookings,
-                          (b) => {
+                    ))}
+                  </div>
+                  {weekDates.map((date) => {
+                    const dayBookings = bookings.filter((b) => b.date === date);
+                    const isToday = date === todayBusinessDate();
+                    return (
+                      <div key={date} className="relative">
+                        <div
+                          className={cn(
+                            "h-10 border-b border-border px-3 py-2 text-xs font-semibold uppercase tracking-wider",
+                            isToday
+                              ? "bg-primary/10 text-primary"
+                              : "bg-muted/40 text-muted-foreground",
+                          )}
+                        >
+                          {new Date(date + "T00:00:00").toLocaleDateString([], {
+                            weekday: "short",
+                            day: "numeric",
+                          })}
+                        </div>
+                        <div className="relative">
+                          {HOURS.map((h) => (
+                            <div key={h} className="h-14 border-b border-border" />
+                          ))}
+                          {layoutOverlaps(
+                            dayBookings,
+                            (b) => {
+                              const [h, m] = b.time.split(":").map(Number);
+                              return h * 60 + m;
+                            },
+                            (b) => {
+                              const [h, m] = b.time.split(":").map(Number);
+                              return h * 60 + m + b.durationMin;
+                            },
+                          ).map(({ item: b, col, cols }) => {
                             const [h, m] = b.time.split(":").map(Number);
-                            return h * 60 + m;
-                          },
-                          (b) => {
-                            const [h, m] = b.time.split(":").map(Number);
-                            return h * 60 + m + b.durationMin;
-                          },
-                        ).map(({ item: b, col, cols }) => {
-                          const [h, m] = b.time.split(":").map(Number);
-                          const startPx = (h - 8) * 56 + (m / 60) * 56;
-                          const heightPx = Math.max(24, (b.durationMin / 60) * 56 - 4);
-                          const color = CAT_COLORS[b.category] ?? "var(--primary)";
-                          // Same side-by-side overlap layout as Day view (B1).
-                          const widthPct = 100 / cols;
-                          const gutter = 4;
-                          const gap = 2;
-                          const leftInset = col === 0 ? gutter : gap / 2;
-                          const rightInset = col === cols - 1 ? gutter : gap / 2;
-                          return (
-                            <div
-                              key={b.id}
-                              role="button"
-                              tabIndex={0}
-                              aria-label={`${b.customerName}, ${b.serviceName}, ${b.time}`}
-                              onKeyDown={onActivateKey(() => {
-                                setActiveCard(b.id === activeCard ? null : b.id);
-                                setCurrentDate(date);
-                                setView("day");
-                              })}
-                              className="absolute rounded-md border-l-[3px] bg-card px-1.5 py-1 cursor-pointer outline-none overflow-hidden hover:shadow-card focus-visible:ring-1 focus-visible:ring-ring"
-                              style={{
-                                top: startPx,
-                                height: heightPx,
-                                borderLeftColor: color,
-                                left: `calc(${col * widthPct}% + ${leftInset}px)`,
-                                right: `calc(${100 - (col + 1) * widthPct}% + ${rightInset}px)`,
-                              }}
-                              title={`${b.customerName} · ${b.serviceName}`}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                setActiveCard(b.id === activeCard ? null : b.id);
-                                setCurrentDate(date);
-                                setView("day");
-                              }}
-                            >
-                              <div className="text-[10px] font-bold truncate">{b.customerName}</div>
-                              <div className="text-[10px] text-muted-foreground truncate">
-                                {b.serviceName}
+                            const startPx = (h - 8) * 56 + (m / 60) * 56;
+                            const heightPx = Math.max(24, (b.durationMin / 60) * 56 - 4);
+                            const color = CAT_COLORS[b.category] ?? "var(--primary)";
+                            // Same side-by-side overlap layout as Day view (B1).
+                            const widthPct = 100 / cols;
+                            const gutter = 4;
+                            const gap = 2;
+                            const leftInset = col === 0 ? gutter : gap / 2;
+                            const rightInset = col === cols - 1 ? gutter : gap / 2;
+                            return (
+                              <div
+                                key={b.id}
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`${b.customerName}, ${b.serviceName}, ${b.time}`}
+                                onKeyDown={onActivateKey(() => {
+                                  setActiveCard(b.id === activeCard ? null : b.id);
+                                  setCurrentDate(date);
+                                  setView("day");
+                                })}
+                                className="absolute rounded-md border-l-[3px] bg-card px-1.5 py-1 cursor-pointer outline-none overflow-hidden hover:shadow-card focus-visible:ring-1 focus-visible:ring-ring"
+                                style={{
+                                  top: startPx,
+                                  height: heightPx,
+                                  borderLeftColor: color,
+                                  left: `calc(${col * widthPct}% + ${leftInset}px)`,
+                                  right: `calc(${100 - (col + 1) * widthPct}% + ${rightInset}px)`,
+                                }}
+                                title={`${b.customerName} · ${b.serviceName}`}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setActiveCard(b.id === activeCard ? null : b.id);
+                                  setCurrentDate(date);
+                                  setView("day");
+                                }}
+                              >
+                                <div className="text-[10px] font-bold truncate">
+                                  {b.customerName}
+                                </div>
+                                <div className="text-[10px] text-muted-foreground truncate">
+                                  {b.serviceName}
+                                </div>
                               </div>
-                            </div>
-                          );
-                        })}
+                            );
+                          })}
+                        </div>
                       </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
               </div>
             </>
           )}
@@ -915,94 +917,94 @@ function Bookings() {
 
               {/* Tablet/desktop: table */}
               <div className="hidden overflow-x-auto md:block">
-              <table className="w-full text-sm">
-                <thead className="bg-charcoal text-charcoal-foreground text-[11px] uppercase tracking-wider">
-                  <tr>
-                    <th className="text-left px-5 py-2.5">Time</th>
-                    <th className="text-left px-3 py-2.5">Customer</th>
-                    <th className="text-left px-3 py-2.5">Vehicle</th>
-                    <th className="text-left px-3 py-2.5">Service</th>
-                    <th className="text-left px-3 py-2.5">Tech</th>
-                    <th className="text-right px-3 py-2.5">Price</th>
-                    <th className="text-left px-3 py-2.5">Deposit</th>
-                    <th className="text-left px-3 py-2.5">Status</th>
-                    <th className="w-28 px-3 py-2.5" />
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border">
-                  {todayBookings.map((b) => (
-                    <tr key={b.id} className="hover:bg-muted/40">
-                      <td className="px-5 py-3 font-mono text-xs">
-                        <div>{b.date}</div>
-                        <div className="text-muted-foreground">{b.time}</div>
-                      </td>
-                      <td className="px-3 py-3 font-medium">{b.customerName}</td>
-                      <td className="px-3 py-3">
-                        <div className="font-mono text-xs">{b.plate}</div>
-                        <div className="text-muted-foreground text-xs">{b.vehicleModel}</div>
-                      </td>
-                      <td className="px-3 py-3">{b.serviceName}</td>
-                      <td className="px-3 py-3 text-muted-foreground">{b.tech || "—"}</td>
-                      <td className="px-3 py-3 text-right font-mono font-semibold whitespace-nowrap">
-                        {formatCurrency(b.price)}
-                      </td>
-                      <td className="px-3 py-3">
-                        {b.depositStatus && b.depositStatus !== "none" && (
-                          <span
-                            className={cn(
-                              "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                              b.depositStatus === "paid"
-                                ? "bg-success/10 text-success"
-                                : "bg-warning/10 text-warning",
-                            )}
-                          >
-                            <Banknote className="h-3 w-3" />
-                            {b.depositStatus === "paid" ? "Dep. Paid" : "Dep. Req."}
-                          </span>
-                        )}
-                      </td>
-                      <td className="px-3 py-3">
-                        <StatusChip variant={statusVariant(b.status)}>{b.status}</StatusChip>
-                      </td>
-                      <td className="px-3 py-3">
-                        <div className="flex items-center gap-1">
-                          {b.depositStatus === "required" && (
-                            <button
-                              onClick={() => handleMarkDepositPaid(b.id)}
-                              className="rounded p-1.5 text-warning hover:bg-warning/10"
-                              title="Mark deposit received"
-                            >
-                              <Banknote className="h-3.5 w-3.5" />
-                            </button>
-                          )}
-                          {(b.status === "Confirmed" || b.status === "Pending") && (
-                            <button
-                              onClick={() => handleCheckin(b.id)}
-                              className="inline-flex items-center gap-1 rounded-md bg-success/10 border border-success/30 text-success px-2 py-1 text-xs font-semibold hover:bg-success/20"
-                              title="Check In"
-                            >
-                              <LogIn className="h-3 w-3" /> Check In
-                            </button>
-                          )}
-                          <button
-                            onClick={() => handleDelete(b.id)}
-                            className="rounded p-1.5 text-muted-foreground hover:text-primary hover:bg-muted"
-                          >
-                            <Trash2 className="h-3.5 w-3.5" />
-                          </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                  {todayBookings.length === 0 && (
+                <table className="w-full text-sm">
+                  <thead className="bg-charcoal text-charcoal-foreground text-[11px] uppercase tracking-wider">
                     <tr>
-                      <td colSpan={9} className="text-center py-10 text-muted-foreground">
-                        No bookings for {formatDate(currentDate)}
-                      </td>
+                      <th className="text-left px-5 py-2.5">Time</th>
+                      <th className="text-left px-3 py-2.5">Customer</th>
+                      <th className="text-left px-3 py-2.5">Vehicle</th>
+                      <th className="text-left px-3 py-2.5">Service</th>
+                      <th className="text-left px-3 py-2.5">Tech</th>
+                      <th className="text-right px-3 py-2.5">Price</th>
+                      <th className="text-left px-3 py-2.5">Deposit</th>
+                      <th className="text-left px-3 py-2.5">Status</th>
+                      <th className="w-28 px-3 py-2.5" />
                     </tr>
-                  )}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {todayBookings.map((b) => (
+                      <tr key={b.id} className="hover:bg-muted/40">
+                        <td className="px-5 py-3 font-mono text-xs">
+                          <div>{b.date}</div>
+                          <div className="text-muted-foreground">{b.time}</div>
+                        </td>
+                        <td className="px-3 py-3 font-medium">{b.customerName}</td>
+                        <td className="px-3 py-3">
+                          <div className="font-mono text-xs">{b.plate}</div>
+                          <div className="text-muted-foreground text-xs">{b.vehicleModel}</div>
+                        </td>
+                        <td className="px-3 py-3">{b.serviceName}</td>
+                        <td className="px-3 py-3 text-muted-foreground">{b.tech || "—"}</td>
+                        <td className="px-3 py-3 text-right font-mono font-semibold whitespace-nowrap">
+                          {formatCurrency(b.price)}
+                        </td>
+                        <td className="px-3 py-3">
+                          {b.depositStatus && b.depositStatus !== "none" && (
+                            <span
+                              className={cn(
+                                "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
+                                b.depositStatus === "paid"
+                                  ? "bg-success/10 text-success"
+                                  : "bg-warning/10 text-warning",
+                              )}
+                            >
+                              <Banknote className="h-3 w-3" />
+                              {b.depositStatus === "paid" ? "Dep. Paid" : "Dep. Req."}
+                            </span>
+                          )}
+                        </td>
+                        <td className="px-3 py-3">
+                          <StatusChip variant={statusVariant(b.status)}>{b.status}</StatusChip>
+                        </td>
+                        <td className="px-3 py-3">
+                          <div className="flex items-center gap-1">
+                            {b.depositStatus === "required" && (
+                              <button
+                                onClick={() => handleMarkDepositPaid(b.id)}
+                                className="rounded p-1.5 text-warning hover:bg-warning/10"
+                                title="Mark deposit received"
+                              >
+                                <Banknote className="h-3.5 w-3.5" />
+                              </button>
+                            )}
+                            {(b.status === "Confirmed" || b.status === "Pending") && (
+                              <button
+                                onClick={() => handleCheckin(b.id)}
+                                className="inline-flex items-center gap-1 rounded-md bg-success/10 border border-success/30 text-success px-2 py-1 text-xs font-semibold hover:bg-success/20"
+                                title="Check In"
+                              >
+                                <LogIn className="h-3 w-3" /> Check In
+                              </button>
+                            )}
+                            <button
+                              onClick={() => handleDelete(b.id)}
+                              className="rounded p-1.5 text-muted-foreground hover:text-primary hover:bg-muted"
+                            >
+                              <Trash2 className="h-3.5 w-3.5" />
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                    {todayBookings.length === 0 && (
+                      <tr>
+                        <td colSpan={9} className="text-center py-10 text-muted-foreground">
+                          No bookings for {formatDate(currentDate)}
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </>
           )}

@@ -397,119 +397,119 @@ function DetailsStep({
           if (validate()) onSubmit();
         }}
       >
-      <div className="space-y-4">
-        <div>
-          <label htmlFor="bk-name" className="mb-1.5 block text-sm font-medium text-gray-700">
-            Full Name <span className="text-primary">*</span>
-          </label>
-          <input
-            id="bk-name"
-            type="text"
-            autoComplete="name"
-            value={form.name}
-            onChange={(e) => onChange({ name: e.target.value })}
-            placeholder="e.g. Roshan Fernando"
-            aria-invalid={!!errors.name}
-            aria-describedby={errors.name ? "bk-name-error" : undefined}
-            className={cn(
-              "w-full rounded-lg border px-3 py-2.5 text-sm outline-none transition-shadow focus:ring-2",
-              errors.name
-                ? "border-red-300 focus:ring-red-200"
-                : "border-gray-200 focus:border-red-400 focus:ring-red-100",
-            )}
-          />
-          {errors.name && (
-            <p id="bk-name-error" className="mt-1 text-xs text-primary">
-              {errors.name}
-            </p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="bk-phone" className="mb-1.5 block text-sm font-medium text-gray-700">
-            Phone Number <span className="text-primary">*</span>
-          </label>
-          <input
-            id="bk-phone"
-            type="tel"
-            autoComplete="tel"
-            value={form.phone}
-            onChange={(e) => onChange({ phone: e.target.value })}
-            placeholder="e.g. +94 77 123 4567"
-            aria-invalid={!!errors.phone}
-            aria-describedby={errors.phone ? "bk-phone-error" : undefined}
-            className={cn(
-              "w-full rounded-lg border px-3 py-2.5 text-sm outline-none transition-shadow focus:ring-2",
-              errors.phone
-                ? "border-red-300 focus:ring-red-200"
-                : "border-gray-200 focus:border-red-400 focus:ring-red-100",
-            )}
-          />
-          {errors.phone && (
-            <p id="bk-phone-error" className="mt-1 text-xs text-primary">
-              {errors.phone}
-            </p>
-          )}
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="space-y-4">
           <div>
-            <label htmlFor="bk-plate" className="mb-1.5 block text-sm font-medium text-gray-700">
-              Vehicle Plate
+            <label htmlFor="bk-name" className="mb-1.5 block text-sm font-medium text-gray-700">
+              Full Name <span className="text-primary">*</span>
             </label>
             <input
-              id="bk-plate"
+              id="bk-name"
               type="text"
-              value={form.plate}
-              onChange={(e) => onChange({ plate: e.target.value.toUpperCase() })}
-              placeholder="e.g. CAR-1234"
-              className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm uppercase tracking-wide outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              autoComplete="name"
+              value={form.name}
+              onChange={(e) => onChange({ name: e.target.value })}
+              placeholder="e.g. Roshan Fernando"
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "bk-name-error" : undefined}
+              className={cn(
+                "w-full rounded-lg border px-3 py-2.5 text-sm outline-none transition-shadow focus:ring-2",
+                errors.name
+                  ? "border-red-300 focus:ring-red-200"
+                  : "border-gray-200 focus:border-red-400 focus:ring-red-100",
+              )}
             />
+            {errors.name && (
+              <p id="bk-name-error" className="mt-1 text-xs text-primary">
+                {errors.name}
+              </p>
+            )}
           </div>
           <div>
-            <label htmlFor="bk-model" className="mb-1.5 block text-sm font-medium text-gray-700">
-              Vehicle Model
+            <label htmlFor="bk-phone" className="mb-1.5 block text-sm font-medium text-gray-700">
+              Phone Number <span className="text-primary">*</span>
             </label>
             <input
-              id="bk-model"
-              type="text"
-              value={form.vehicleModel}
-              onChange={(e) => onChange({ vehicleModel: e.target.value })}
-              placeholder="e.g. Toyota Aqua"
-              className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              id="bk-phone"
+              type="tel"
+              autoComplete="tel"
+              value={form.phone}
+              onChange={(e) => onChange({ phone: e.target.value })}
+              placeholder="e.g. +94 77 123 4567"
+              aria-invalid={!!errors.phone}
+              aria-describedby={errors.phone ? "bk-phone-error" : undefined}
+              className={cn(
+                "w-full rounded-lg border px-3 py-2.5 text-sm outline-none transition-shadow focus:ring-2",
+                errors.phone
+                  ? "border-red-300 focus:ring-red-200"
+                  : "border-gray-200 focus:border-red-400 focus:ring-red-100",
+              )}
+            />
+            {errors.phone && (
+              <p id="bk-phone-error" className="mt-1 text-xs text-primary">
+                {errors.phone}
+              </p>
+            )}
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label htmlFor="bk-plate" className="mb-1.5 block text-sm font-medium text-gray-700">
+                Vehicle Plate
+              </label>
+              <input
+                id="bk-plate"
+                type="text"
+                value={form.plate}
+                onChange={(e) => onChange({ plate: e.target.value.toUpperCase() })}
+                placeholder="e.g. CAR-1234"
+                className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm uppercase tracking-wide outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              />
+            </div>
+            <div>
+              <label htmlFor="bk-model" className="mb-1.5 block text-sm font-medium text-gray-700">
+                Vehicle Model
+              </label>
+              <input
+                id="bk-model"
+                type="text"
+                value={form.vehicleModel}
+                onChange={(e) => onChange({ vehicleModel: e.target.value })}
+                placeholder="e.g. Toyota Aqua"
+                className="w-full rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100"
+              />
+            </div>
+          </div>
+          <div>
+            <label htmlFor="bk-notes" className="mb-1.5 block text-sm font-medium text-gray-700">
+              Special Requests
+            </label>
+            <textarea
+              id="bk-notes"
+              value={form.notes}
+              onChange={(e) => onChange({ notes: e.target.value })}
+              placeholder="Any special instructions or requests?"
+              rows={3}
+              className="w-full resize-none rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100"
             />
           </div>
         </div>
-        <div>
-          <label htmlFor="bk-notes" className="mb-1.5 block text-sm font-medium text-gray-700">
-            Special Requests
-          </label>
-          <textarea
-            id="bk-notes"
-            value={form.notes}
-            onChange={(e) => onChange({ notes: e.target.value })}
-            placeholder="Any special instructions or requests?"
-            rows={3}
-            className="w-full resize-none rounded-lg border border-gray-200 px-3 py-2.5 text-sm outline-none focus:border-red-400 focus:ring-2 focus:ring-red-100"
-          />
-        </div>
-      </div>
 
-      {submitError && (
-        <p
-          role="alert"
-          className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-center text-sm text-red-600"
+        {submitError && (
+          <p
+            role="alert"
+            className="mt-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-center text-sm text-red-600"
+          >
+            {submitError}
+          </p>
+        )}
+
+        <button
+          type="submit"
+          disabled={submitting}
+          className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
         >
-          {submitError}
-        </p>
-      )}
-
-      <button
-        type="submit"
-        disabled={submitting}
-        className="mt-6 flex w-full items-center justify-center gap-2 rounded-xl bg-primary py-3 font-semibold text-primary-foreground transition-all hover:bg-primary/90 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
-      >
-        {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
-        {submitting ? "Booking…" : "Confirm Booking"}
-      </button>
+          {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
+          {submitting ? "Booking…" : "Confirm Booking"}
+        </button>
       </form>
       <p className="mt-3 text-center text-xs text-muted-foreground">
         Our team will confirm your appointment via WhatsApp or phone.
@@ -695,7 +695,9 @@ function BookPage() {
               className="h-9 w-9 shrink-0 object-contain"
             />
             <div className="leading-tight">
-              <div className="text-[10px] font-bold tracking-[0.18em] text-muted-foreground">POLISH</div>
+              <div className="text-[10px] font-bold tracking-[0.18em] text-muted-foreground">
+                POLISH
+              </div>
               <div className="-mt-0.5 text-sm font-bold text-gray-900">STATION</div>
             </div>
             <span className="ml-auto text-xs text-muted-foreground">Online Booking</span>

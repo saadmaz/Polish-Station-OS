@@ -499,48 +499,50 @@ function DamageMarkerTable({
               <span className="capitalize">{m.view}</span>
               {m.panelId && <span>· {panelLabel(m.panelId)}</span>}
             </div>
-            {m.note && <div className="mt-0.5 truncate text-xs text-muted-foreground">{m.note}</div>}
+            {m.note && (
+              <div className="mt-0.5 truncate text-xs text-muted-foreground">{m.note}</div>
+            )}
           </div>
         ))}
       </div>
 
       {/* Tablet/desktop: table */}
       <div className="hidden overflow-x-auto md:block">
-      <table className="w-full text-sm">
-        <thead>
-          <tr className="border-b border-border text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">
-            <th className="px-3 py-2">#</th>
-            <th className="px-3 py-2">View</th>
-            <th className="px-3 py-2">Panel</th>
-            <th className="px-3 py-2">Type</th>
-            <th className="px-3 py-2">Severity</th>
-            <th className="px-3 py-2">Note</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sorted.map((m) => (
-            <tr
-              key={m.seq}
-              onClick={() => onSelect(m.seq)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={onActivateKey(() => onSelect(m.seq))}
-              className="cursor-pointer border-b border-border outline-none last:border-0 hover:bg-accent/50 focus-visible:bg-accent/50 focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-ring"
-            >
-              <td className="px-3 py-2 font-mono">{m.seq}</td>
-              <td className="px-3 py-2 capitalize">{m.view}</td>
-              <td className="px-3 py-2 text-muted-foreground">
-                {m.panelId ? panelLabel(m.panelId) : "—"}
-              </td>
-              <td className="px-3 py-2">{MARKER_TYPE_LABELS[m.type]}</td>
-              <td className="px-3 py-2">{SEVERITY_LABELS[m.severity]}</td>
-              <td className="max-w-[220px] truncate px-3 py-2 text-muted-foreground">
-                {m.note || "—"}
-              </td>
+        <table className="w-full text-sm">
+          <thead>
+            <tr className="border-b border-border text-left text-xs font-bold uppercase tracking-wider text-muted-foreground">
+              <th className="px-3 py-2">#</th>
+              <th className="px-3 py-2">View</th>
+              <th className="px-3 py-2">Panel</th>
+              <th className="px-3 py-2">Type</th>
+              <th className="px-3 py-2">Severity</th>
+              <th className="px-3 py-2">Note</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {sorted.map((m) => (
+              <tr
+                key={m.seq}
+                onClick={() => onSelect(m.seq)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={onActivateKey(() => onSelect(m.seq))}
+                className="cursor-pointer border-b border-border outline-none last:border-0 hover:bg-accent/50 focus-visible:bg-accent/50 focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-ring"
+              >
+                <td className="px-3 py-2 font-mono">{m.seq}</td>
+                <td className="px-3 py-2 capitalize">{m.view}</td>
+                <td className="px-3 py-2 text-muted-foreground">
+                  {m.panelId ? panelLabel(m.panelId) : "—"}
+                </td>
+                <td className="px-3 py-2">{MARKER_TYPE_LABELS[m.type]}</td>
+                <td className="px-3 py-2">{SEVERITY_LABELS[m.severity]}</td>
+                <td className="max-w-[220px] truncate px-3 py-2 text-muted-foreground">
+                  {m.note || "—"}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

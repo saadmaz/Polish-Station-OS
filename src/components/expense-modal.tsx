@@ -162,7 +162,9 @@ export function ExpenseModal({ open, onClose }: ExpenseModalProps) {
             disabled={saving || !amount}
             className={cn(
               "w-full rounded-md py-2.5 text-sm font-medium text-primary-foreground transition-colors shadow-sm",
-              type === "EXPENSE" ? "bg-primary hover:bg-primary/90" : "bg-success hover:bg-success/90",
+              type === "EXPENSE"
+                ? "bg-primary hover:bg-primary/90"
+                : "bg-success hover:bg-success/90",
               (!amount || saving) && "opacity-50 cursor-not-allowed",
             )}
           >
