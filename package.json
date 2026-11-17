@@ -23,8 +23,10 @@
     "build": "node scripts/write-build-id.mjs && vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "start": "node server.mjs",
+    "deploy": "npm run build && wrangler deploy",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p worker",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "seed:staff": "tsx scripts/seed-staff.ts",
@@ -79,6 +81,8 @@
     "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@cloudflare/containers": "^0.3.7",
+    "@cloudflare/workers-types": "^5.20261117.1",
     "@eslint/js": "^9.32.0",
     "@firebase/rules-unit-testing": "^5.0.1",
     "@types/node": "^22.16.5",
@@ -99,6 +103,7 @@
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1",
     "vite": "^8.0.16",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "wrangler": "^4.163.0"
   }
 }

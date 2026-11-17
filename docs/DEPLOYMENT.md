@@ -7,42 +7,64 @@
 > How Polish Station POS reaches production. Part of the [project documentation](README.md).
 
 > [!IMPORTANT]
-> Hosting is moving to **Cloudflare**. The previous shared-hosting pipeline (FTPS upload to Passenger, keep-warm jobs and server maintenance) has been removed. The version currently live at [www.pos.polishstation.lk](https://www.pos.polishstation.lk) keeps running on the old host, unchanged, until the Cloudflare cut-over. Until then, merges to `main` are **not** deployed.
+> The app runs on **Cloudflare**: a Worker in front of the Node server in a Cloudflare Container. Production deploys switch on with the `CLOUDFLARE_ENABLED` repository variable. Until you switch them on and move DNS, the version live at [www.pos.polishstation.lk](https://www.pos.polishstation.lk) stays on the previous host, unchanged.
 
 ## Environments
 
-| Environment   | Branch    | URL                                                          | Status                                          |
-| ------------- | --------- | ------------------------------------------------------------ | ----------------------------------------------- |
-| `development` | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) | Created with the Cloudflare setup               |
-| `production`  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) | Live on the previous host; moving to Cloudflare |
+| Environment   | Branch    | URL                                                          | Cloudflare Worker                |
+| ------------- | --------- | ------------------------------------------------------------ | -------------------------------- |
+| `development` | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) | `polish-station-pos-development` |
+| `production`  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) | `polish-station-pos`             |
 
-Both are GitHub Environments with their own variables and secrets. Production accepts deployments from `main` only; development from `develop` only.
+Each is a GitHub Environment with its own variables (`APP_URL`) and secrets. Production accepts deployments from `main` only; development from `develop` only.
 
 ### Promotion
 
-1. Feature branches merge into `develop`.
+1. Feature branches merge into `develop` and deploy to development (once `DEVELOPMENT_ENABLED` is `true`).
 2. A release pull request from `develop` into `main` (see [runbooks/release.md](runbooks/release.md)) promotes the change.
-3. Once the Cloudflare deploy workflow exists, merging it deploys to production.
+3. Merging it deploys to production (once `CLOUDFLARE_ENABLED` is `true`).
 
-## Cloudflare migration
+## How it runs
 
-The app is a TanStack Start application whose server routes use `firebase-admin`. That shapes the hosting choice:
+```mermaid
+flowchart LR
+  Till(["Staff tills"]) --> Worker["Cloudflare Worker<br/>worker/index.ts"]
+  Worker --> Container["Cloudflare Container<br/>Node 22 · server.mjs"]
+  Container -- firebase-admin --> Firestore[("Cloud Firestore")]
+  Till -- live listeners --> Firestore
+```
 
-| Option                                             | What it takes                                                                                                                                                                                                                                 |
-| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cloudflare Containers** (recommended first step) | Run the existing Node server unchanged in a container. Build with `npm run build`, serve with `vite preview` or a small Node entry, and add a `Dockerfile` and `wrangler.jsonc` with a container binding. No application code changes.        |
-| **Cloudflare Workers**                             | Build with TanStack Start's Cloudflare preset. Replace `firebase-admin` in `src/server/` with Firestore and Identity Toolkit REST calls signed by the service account, because `firebase-admin` does not run reliably on the Workers runtime. |
+| File                                    | Role                                                                                                                                                        |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`server.mjs`](../server.mjs)           | Node server: serves `dist/client`, passes every other request to the app, and sets the Content Security Policy, security headers and one-year asset caching |
+| [`Dockerfile`](../Dockerfile)           | Production image: production dependencies, the build output and `server.mjs`, run as a non-root user                                                        |
+| [`worker/index.ts`](../worker/index.ts) | Worker that forwards requests to one shared container instance and passes runtime secrets to it; the instance sleeps after 30 idle minutes                  |
+| [`wrangler.jsonc`](../wrangler.jsonc)   | Worker, container and Durable Object configuration for production and development                                                                           |
 
-Whichever is chosen, carry these over from the previous host:
+## How a deploy works
 
-- [ ] Security headers on every response: Content Security Policy, `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy` and HSTS.
-- [ ] `Cache-Control: public, max-age=31536000, immutable` for `/assets/*`.
-- [ ] The canonical redirect from `pos.polishstation.lk` to `www.pos.polishstation.lk` (a Cloudflare Redirect Rule).
-- [ ] Server environment variables from [CONFIGURATION.md](CONFIGURATION.md), stored as Worker or container secrets.
-- [ ] A `deploy.yml` workflow following the shared pattern: `main` → production, `develop` → development (gated by `DEVELOPMENT_ENABLED`).
-- [ ] `/healthz` responding `ok` after deploy; open tabs use it for warm-up and new-version notices.
+[`deploy.yml`](../.github/workflows/deploy.yml) runs on every push to `main` or `develop`:
 
-Then point DNS for `pos.polishstation.lk` at Cloudflare, confirm staff can sign in, and retire the old host.
+1. Install dependencies and run `npm run build` with the environment's Firebase web config.
+2. Deploy with Wrangler, which builds the container image from the `Dockerfile`, publishes the Worker and uploads the runtime secrets.
+3. Smoke-test `/healthz`, which must return `ok`.
+
+## First-time setup
+
+1. **Cloudflare API token.** Create a token with the _Edit Cloudflare Workers_ template plus _Containers: Edit_, and store it as the `CLOUDFLARE_API_TOKEN` repository secret. `CLOUDFLARE_ACCOUNT_ID` is already set as a repository variable.
+2. **Runtime secrets.** `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL` and `FIREBASE_PRIVATE_KEY` are already repository secrets. Add `RESEND_API_KEY`, `LEADS_NOTIFY_EMAIL` and `GOOGLE_ADS_LEAD_WEBHOOK_KEY` from the old server's `.env`, and `VITE_SENTRY_DSN` if Sentry is used.
+3. **Switch on deploys.** Set the repository variable `CLOUDFLARE_ENABLED` to `true`, then run the **Deploy** workflow on `main`.
+4. **Domains.** In the Worker's settings, add `www.pos.polishstation.lk` (and `pos.polishstation.lk`) as custom domains, and add a Redirect Rule from `pos.polishstation.lk` to `www.pos.polishstation.lk` (301).
+5. **Cut over.** Confirm staff can sign in on the Cloudflare URL, then retire the previous host.
+6. Repeat steps 2 to 4 for development with `dev.pos.polishstation.lk`, then set `DEVELOPMENT_ENABLED` to `true`.
+
+## Run the production build locally
+
+```sh
+npm run build
+npm start                  # node server.mjs on http://localhost:8080 (needs the FIREBASE_* server variables)
+docker build -t pos . && docker run -p 8080:8080 --env-file .env pos
+```
 
 ## Firestore and Storage rules
 
@@ -51,11 +73,6 @@ Rules and indexes deploy independently of hosting, through [`firebase-deploy.yml
 ```sh
 firebase deploy --only firestore:rules,firestore:indexes,storage
 ```
-
-| Secret                          | Used by               |
-| ------------------------------- | --------------------- |
-| `FIREBASE_PROJECT_ID`           | `firebase-deploy.yml` |
-| `FIREBASE_SERVICE_ACCOUNT_JSON` | `firebase-deploy.yml` |
 
 ## Seed data
 
@@ -73,11 +90,11 @@ npm run seed:data    # services, customers, inventory, bookings, jobs, equipment
 
 - **Code:** GitHub is the source of truth; every release is tagged.
 - **Firestore:** enable scheduled backups in Firebase Console → Firestore → Backups with a daily schedule and 7 to 14 days' retention. Before any risky manual data operation, run `gcloud firestore export gs://<backup-bucket>`.
-- **Secrets:** keep a copy of the production environment values in the team password manager.
+- **Secrets:** keep a copy of the production values in the team password manager.
 
 ## Post-deployment checks
 
 1. `/healthz` returns `ok`.
 2. A staff member can sign in with their PIN, and an enrolled till can sign in offline.
 3. A booking submitted from [polishstation.lk](https://www.polishstation.lk/book) appears in Bookings.
-4. Response headers include the security headers listed above.
+4. Response headers include the Content Security Policy and `Strict-Transport-Security`.

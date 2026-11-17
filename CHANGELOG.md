@@ -31,6 +31,12 @@
 
 ## [Unreleased]
 
+### Added
+
+- Cloudflare hosting: a Worker in front of the Node server in a Cloudflare Container, with production and development environments. Production deploys switch on with the `CLOUDFLARE_ENABLED` variable.
+- `server.mjs`, the production Node server, with the Content Security Policy, security headers and asset caching; `npm start` runs it.
+- `Dockerfile` for the production image.
+
 ## [1.2.0] - 2026-11-17
 
 ### Removed

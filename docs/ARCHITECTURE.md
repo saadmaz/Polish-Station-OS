@@ -11,7 +11,7 @@
 ```mermaid
 flowchart LR
   Tills(["Staff tills<br/>browser"]) -- Firebase Auth + live listeners --> Firestore[("Cloud Firestore")]
-  Tills --> App["TanStack Start app<br/>Node 22"]
+  Tills --> App["TanStack Start app<br/>Cloudflare Container"]
   Website["polishstation.lk"] -- "/api/public/*" --> App
   GoogleAds["Google Ads lead forms"] -- webhook --> App
   App -- firebase-admin --> Firestore
@@ -42,6 +42,8 @@ The full module tour, with flow diagrams, is in [FEATURES.md](FEATURES.md).
 | `src/routes/_app.*`                | Staff application screens                                                                 |
 | `src/routes/api.public.*`          | Public intake endpoints for the website and ad platforms                                  |
 | `src/routes/healthz.ts`            | Health check used by the deploy warm-up                                                   |
+| `server.mjs`                       | Production Node server: static assets, security headers, and the app handler              |
+| `worker/index.ts`                  | Cloudflare Worker that forwards requests to the container                                 |
 | `src/lib/`                         | Firebase clients, auth and domain logic (jobs, leads, inspections, money) with unit tests |
 | `src/server/`                      | Server-only modules                                                                       |
 | `firestore.rules`, `storage.rules` | Data-layer security rules                                                                 |
