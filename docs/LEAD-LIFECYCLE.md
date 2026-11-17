@@ -1,5 +1,9 @@
 # Lead Lifecycle — How Leads Flow Through the POS
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 This documents the current (as-built) behavior, verified against source:
 `src/lib/db.ts`, `src/lib/lead.ts`, `src/lib/store.tsx`, `src/routes/_app.leads.tsx`,
 `src/routes/api.public.booking.ts`, `src/routes/api.public.contact.ts`, `firestore.rules`.
