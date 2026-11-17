@@ -8,7 +8,7 @@ Bookings, check-in, inspections, jobs, checkout, invoicing, inventory, purchasin
 
 [![App](https://img.shields.io/badge/app-pos.polishstation.lk-374151?style=flat-square&labelColor=111827)](https://www.pos.polishstation.lk)
 [![CI](https://github.com/saadmaz/Polish-Station-POS/actions/workflows/ci.yml/badge.svg)](https://github.com/saadmaz/Polish-Station-POS/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-v1.0.0-374151?style=flat-square&labelColor=111827)](https://github.com/saadmaz/Polish-Station-POS/releases)
+[![Version](https://img.shields.io/badge/version-v1.1.0-374151?style=flat-square&labelColor=111827)](https://github.com/saadmaz/Polish-Station-POS/releases)
 ![License](https://img.shields.io/badge/license-proprietary-374151?style=flat-square&labelColor=111827)
 
 [**pos.polishstation.lk**](https://www.pos.polishstation.lk) · [Documentation](docs/README.md) · [Report a bug](https://github.com/saadmaz/Polish-Station-POS/issues/new?template=bug_report.yml) · [Request a change](https://github.com/saadmaz/Polish-Station-POS/issues/new?template=feature_request.yml)
