@@ -422,103 +422,105 @@ export function LineItemsTable({
           over the mobile card block even if the print engine reports a
           narrow virtual viewport width. */}
       <div className="hidden overflow-x-auto md:block print:block!">
-      <table className="w-full text-sm">
-        <thead className="text-[11px] uppercase tracking-wider text-muted-foreground">
-          <tr className="border-b border-border">
-            <th className="px-2 py-2 text-left">Description</th>
-            <th className="px-2 py-2 text-right w-16">Qty</th>
-            <th className="px-2 py-2 text-right w-28">Unit Price</th>
-            <th className="px-2 py-2 text-right w-24">Discount</th>
-            <th className="px-2 py-2 text-right w-28">Amount</th>
-            {editable && <th className="w-8" />}
-          </tr>
-        </thead>
-        <tbody className="divide-y divide-border">
-          {lines.length === 0 && (
-            <tr>
-              <td
-                colSpan={editable ? 6 : 5}
-                className="px-2 py-6 text-center text-sm text-muted-foreground"
-              >
-                {editable ? "No lines yet — add a service or a custom line above" : "No line items"}
-              </td>
+        <table className="w-full text-sm">
+          <thead className="text-[11px] uppercase tracking-wider text-muted-foreground">
+            <tr className="border-b border-border">
+              <th className="px-2 py-2 text-left">Description</th>
+              <th className="px-2 py-2 text-right w-16">Qty</th>
+              <th className="px-2 py-2 text-right w-28">Unit Price</th>
+              <th className="px-2 py-2 text-right w-24">Discount</th>
+              <th className="px-2 py-2 text-right w-28">Amount</th>
+              {editable && <th className="w-8" />}
             </tr>
-          )}
-          {lines.map((l) => (
-            <tr key={l.key} className="group">
-              <td className="px-2 py-2">
-                {editable ? (
-                  <input
-                    className="w-full min-h-9 bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset rounded"
-                    value={l.name}
-                    onChange={(e) => onUpdateLine?.(l.key, "name", e.target.value)}
-                  />
-                ) : (
-                  l.name
-                )}
-              </td>
-              <td className="px-2 py-2 text-right tabular-nums">
-                {editable ? (
-                  <input
-                    type="number"
-                    min={1}
-                    className="w-14 min-h-9 rounded bg-muted px-2 py-1 text-right font-mono text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
-                    value={l.qty}
-                    onChange={(e) => onUpdateLine?.(l.key, "qty", Number(e.target.value))}
-                  />
-                ) : (
-                  l.qty
-                )}
-              </td>
-              <td className="px-2 py-2 text-right tabular-nums">
-                {l.hideUnitPrice ? (
-                  <span className="text-muted-foreground">—</span>
-                ) : editable ? (
-                  <input
-                    type="number"
-                    min={0}
-                    className="w-24 min-h-9 rounded bg-muted px-2 py-1 text-right font-mono text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
-                    value={l.unitPrice}
-                    onChange={(e) => onUpdateLine?.(l.key, "unitPrice", Number(e.target.value))}
-                  />
-                ) : (
-                  formatCurrency(l.unitPrice)
-                )}
-              </td>
-              <td className="px-2 py-2 text-right tabular-nums">
-                {editable ? (
-                  <input
-                    type="number"
-                    min={0}
-                    className="w-24 min-h-9 rounded bg-muted px-2 py-1 text-right font-mono text-sm tabular-nums text-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
-                    value={l.discount}
-                    onChange={(e) => onUpdateLine?.(l.key, "discount", Number(e.target.value))}
-                  />
-                ) : l.discount > 0 ? (
-                  <span className="text-primary">− {formatCurrency(l.discount)}</span>
-                ) : (
-                  <span className="text-muted-foreground">—</span>
-                )}
-              </td>
-              <td className="px-2 py-2 text-right font-mono text-sm font-semibold tabular-nums">
-                {formatCurrency(l.unitPrice * l.qty - l.discount)}
-              </td>
-              {editable && (
-                <td className="px-1 py-2 text-right">
-                  <button
-                    type="button"
-                    onClick={() => onRemoveLine?.(l.key)}
-                    aria-label={`Remove ${l.name || "line"}`}
-                    className="rounded-md p-1.5 text-muted-foreground opacity-0 hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
-                  >
-                    <Trash2 className="h-3.5 w-3.5" />
-                  </button>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {lines.length === 0 && (
+              <tr>
+                <td
+                  colSpan={editable ? 6 : 5}
+                  className="px-2 py-6 text-center text-sm text-muted-foreground"
+                >
+                  {editable
+                    ? "No lines yet — add a service or a custom line above"
+                    : "No line items"}
                 </td>
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </tr>
+            )}
+            {lines.map((l) => (
+              <tr key={l.key} className="group">
+                <td className="px-2 py-2">
+                  {editable ? (
+                    <input
+                      className="w-full min-h-9 bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset rounded"
+                      value={l.name}
+                      onChange={(e) => onUpdateLine?.(l.key, "name", e.target.value)}
+                    />
+                  ) : (
+                    l.name
+                  )}
+                </td>
+                <td className="px-2 py-2 text-right tabular-nums">
+                  {editable ? (
+                    <input
+                      type="number"
+                      min={1}
+                      className="w-14 min-h-9 rounded bg-muted px-2 py-1 text-right font-mono text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
+                      value={l.qty}
+                      onChange={(e) => onUpdateLine?.(l.key, "qty", Number(e.target.value))}
+                    />
+                  ) : (
+                    l.qty
+                  )}
+                </td>
+                <td className="px-2 py-2 text-right tabular-nums">
+                  {l.hideUnitPrice ? (
+                    <span className="text-muted-foreground">—</span>
+                  ) : editable ? (
+                    <input
+                      type="number"
+                      min={0}
+                      className="w-24 min-h-9 rounded bg-muted px-2 py-1 text-right font-mono text-sm tabular-nums focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
+                      value={l.unitPrice}
+                      onChange={(e) => onUpdateLine?.(l.key, "unitPrice", Number(e.target.value))}
+                    />
+                  ) : (
+                    formatCurrency(l.unitPrice)
+                  )}
+                </td>
+                <td className="px-2 py-2 text-right tabular-nums">
+                  {editable ? (
+                    <input
+                      type="number"
+                      min={0}
+                      className="w-24 min-h-9 rounded bg-muted px-2 py-1 text-right font-mono text-sm tabular-nums text-primary focus:outline-none focus:ring-2 focus:ring-ring focus:ring-inset"
+                      value={l.discount}
+                      onChange={(e) => onUpdateLine?.(l.key, "discount", Number(e.target.value))}
+                    />
+                  ) : l.discount > 0 ? (
+                    <span className="text-primary">− {formatCurrency(l.discount)}</span>
+                  ) : (
+                    <span className="text-muted-foreground">—</span>
+                  )}
+                </td>
+                <td className="px-2 py-2 text-right font-mono text-sm font-semibold tabular-nums">
+                  {formatCurrency(l.unitPrice * l.qty - l.discount)}
+                </td>
+                {editable && (
+                  <td className="px-1 py-2 text-right">
+                    <button
+                      type="button"
+                      onClick={() => onRemoveLine?.(l.key)}
+                      aria-label={`Remove ${l.name || "line"}`}
+                      className="rounded-md p-1.5 text-muted-foreground opacity-0 hover:text-primary focus-visible:opacity-100 group-hover:opacity-100"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                    </button>
+                  </td>
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );

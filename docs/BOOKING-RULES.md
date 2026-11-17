@@ -98,7 +98,7 @@ recoverable from a Firestore backup/export of that one document.
   `server/bookings.ts`). Replaced a previously hardcoded `price >= 15000` →
   30% check that used to live directly in `booking-sheet.tsx`.
 - **What's missing today**: nothing for computation/storage. Whether the
-  deposit is actually *collected* depends on field 3a below (checkout
+  deposit is actually _collected_ depends on field 3a below (checkout
   reconciliation), which is real but is a separate code path from the
   settings field itself.
 

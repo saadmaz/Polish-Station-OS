@@ -798,10 +798,7 @@ await check(
 );
 
 console.log("\nLead timeline (leadEvents, Phase 5 detail-panel):");
-await check(
-  "anon CANNOT read leadEvents",
-  assertFails(getDoc(doc(anon, "leadEvents/ev1"))),
-);
+await check("anon CANNOT read leadEvents", assertFails(getDoc(doc(anon, "leadEvents/ev1"))));
 await check(
   "anon CANNOT create a leadEvent",
   assertFails(

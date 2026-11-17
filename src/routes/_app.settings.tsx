@@ -169,49 +169,49 @@ function BusinessPanel() {
           if (dirty) save();
         }}
       >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {(
-          [
-            ["Business Name", "name"],
-            ["Trading Name", "trading"],
-            ["Phone", "phone"],
-            ["Email", "email"],
-            ["Address", "address"],
-            ["Opening Hours", "hours"],
-          ] as [string, keyof BusinessInfo][]
-        ).map(([label, key]) => (
-          <label key={key} className={cn("block", key === "address" && "md:col-span-2")}>
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-              {label}
-            </span>
-            {/* This prints on every invoice/PO -- a single-column-width input
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {(
+            [
+              ["Business Name", "name"],
+              ["Trading Name", "trading"],
+              ["Phone", "phone"],
+              ["Email", "email"],
+              ["Address", "address"],
+              ["Opening Hours", "hours"],
+            ] as [string, keyof BusinessInfo][]
+          ).map(([label, key]) => (
+            <label key={key} className={cn("block", key === "address" && "md:col-span-2")}>
+              <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {label}
+              </span>
+              {/* This prints on every invoice/PO -- a single-column-width input
                 truncated it with no way to read the full value (audit ST5). */}
-            <input
-              value={form[key]}
-              onChange={(e) => set(key, e.target.value)}
-              className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
-            />
-          </label>
-        ))}
-      </div>
-      <div className="mt-6 flex items-center gap-2 justify-end">
-        {saved && <span className="text-xs text-success font-medium">Saved ✓</span>}
-        {dirty && <span className="text-xs text-warning font-medium">Unsaved changes</span>}
-        <button
-          type="button"
-          onClick={reset}
-          className="rounded-md border border-input px-4 py-2 text-sm"
-        >
-          Reset
-        </button>
-        <button
-          type="submit"
-          disabled={!dirty}
-          className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-red disabled:opacity-50"
-        >
-          Save Changes
-        </button>
-      </div>
+              <input
+                value={form[key]}
+                onChange={(e) => set(key, e.target.value)}
+                className="mt-1 w-full rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/20"
+              />
+            </label>
+          ))}
+        </div>
+        <div className="mt-6 flex items-center gap-2 justify-end">
+          {saved && <span className="text-xs text-success font-medium">Saved ✓</span>}
+          {dirty && <span className="text-xs text-warning font-medium">Unsaved changes</span>}
+          <button
+            type="button"
+            onClick={reset}
+            className="rounded-md border border-input px-4 py-2 text-sm"
+          >
+            Reset
+          </button>
+          <button
+            type="submit"
+            disabled={!dirty}
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-red disabled:opacity-50"
+          >
+            Save Changes
+          </button>
+        </div>
       </form>
     </>
   );

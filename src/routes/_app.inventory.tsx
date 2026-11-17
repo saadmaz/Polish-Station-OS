@@ -437,75 +437,77 @@ function Inventory() {
 
         {/* Tablet/desktop: table */}
         <div className="hidden overflow-x-auto md:block">
-        <table className="w-full text-sm">
-          <thead className="bg-charcoal text-charcoal-foreground text-[11px] uppercase tracking-wider">
-            <tr>
-              <th className="text-left px-5 py-2.5">Item</th>
-              <th className="text-left px-3 py-2.5">SKU</th>
-              <th className="text-left px-3 py-2.5">Category</th>
-              <th className="text-right px-3 py-2.5">Stock</th>
-              <th className="text-right px-3 py-2.5">Reorder</th>
-              <th className="text-right px-3 py-2.5">Unit Cost</th>
-              <th className="text-left px-3 py-2.5">Supplier</th>
-              <th className="text-left px-3 py-2.5">Status</th>
-              <th className="px-3 py-2.5 w-36">Adjust</th>
-              <th className="w-20 px-3 py-2.5" />
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-border">
-            {filtered.map((i) => {
-              const st = stockStatus(i.stock, i.reorder);
-              return (
-                <tr key={i.id} className="hover:bg-muted/40">
-                  <td className="px-5 py-3 font-medium">{i.name}</td>
-                  <td className="px-3 py-3 font-mono text-xs text-muted-foreground">{i.sku}</td>
-                  <td className="px-3 py-3 text-muted-foreground">{i.category}</td>
-                  <td className="px-3 py-3 text-right font-mono font-semibold">
-                    {i.stock} <span className="text-muted-foreground">{i.unit}</span>
-                  </td>
-                  <td className="px-3 py-3 text-right font-mono text-muted-foreground">
-                    {i.reorder}
-                  </td>
-                  <td className="px-3 py-3 text-right font-mono">{formatCurrency(i.cost)}</td>
-                  <td className="px-3 py-3 text-muted-foreground">{i.supplier}</td>
-                  <td className="px-3 py-3">
-                    <StatusChip variant={st.variant}>{st.label}</StatusChip>
-                  </td>
-                  <td className="px-3 py-3">
-                    <AdjustWidget item={i} />
-                  </td>
-                  <td className="px-3 py-3">
-                    {canManage && (
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => setFormMode(i)}
-                          className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                          title="Edit"
-                        >
-                          <Pencil className="h-3.5 w-3.5" />
-                        </button>
-                        <button
-                          onClick={() => handleDelete(i.id, i.name)}
-                          className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-primary"
-                          title="Delete"
-                        >
-                          <Trash2 className="h-3.5 w-3.5" />
-                        </button>
-                      </div>
-                    )}
+          <table className="w-full text-sm">
+            <thead className="bg-charcoal text-charcoal-foreground text-[11px] uppercase tracking-wider">
+              <tr>
+                <th className="text-left px-5 py-2.5">Item</th>
+                <th className="text-left px-3 py-2.5">SKU</th>
+                <th className="text-left px-3 py-2.5">Category</th>
+                <th className="text-right px-3 py-2.5">Stock</th>
+                <th className="text-right px-3 py-2.5">Reorder</th>
+                <th className="text-right px-3 py-2.5">Unit Cost</th>
+                <th className="text-left px-3 py-2.5">Supplier</th>
+                <th className="text-left px-3 py-2.5">Status</th>
+                <th className="px-3 py-2.5 w-36">Adjust</th>
+                <th className="w-20 px-3 py-2.5" />
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              {filtered.map((i) => {
+                const st = stockStatus(i.stock, i.reorder);
+                return (
+                  <tr key={i.id} className="hover:bg-muted/40">
+                    <td className="px-5 py-3 font-medium">{i.name}</td>
+                    <td className="px-3 py-3 font-mono text-xs text-muted-foreground">{i.sku}</td>
+                    <td className="px-3 py-3 text-muted-foreground">{i.category}</td>
+                    <td className="px-3 py-3 text-right font-mono font-semibold">
+                      {i.stock} <span className="text-muted-foreground">{i.unit}</span>
+                    </td>
+                    <td className="px-3 py-3 text-right font-mono text-muted-foreground">
+                      {i.reorder}
+                    </td>
+                    <td className="px-3 py-3 text-right font-mono">{formatCurrency(i.cost)}</td>
+                    <td className="px-3 py-3 text-muted-foreground">{i.supplier}</td>
+                    <td className="px-3 py-3">
+                      <StatusChip variant={st.variant}>{st.label}</StatusChip>
+                    </td>
+                    <td className="px-3 py-3">
+                      <AdjustWidget item={i} />
+                    </td>
+                    <td className="px-3 py-3">
+                      {canManage && (
+                        <div className="flex items-center gap-1">
+                          <button
+                            onClick={() => setFormMode(i)}
+                            className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+                            title="Edit"
+                          >
+                            <Pencil className="h-3.5 w-3.5" />
+                          </button>
+                          <button
+                            onClick={() => handleDelete(i.id, i.name)}
+                            className="rounded p-1.5 text-muted-foreground hover:bg-muted hover:text-primary"
+                            title="Delete"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      )}
+                    </td>
+                  </tr>
+                );
+              })}
+              {filtered.length === 0 && (
+                <tr>
+                  <td colSpan={10} className="text-center py-10 text-muted-foreground">
+                    {inventory.length === 0
+                      ? "No inventory items yet"
+                      : "No items match your filter"}
                   </td>
                 </tr>
-              );
-            })}
-            {filtered.length === 0 && (
-              <tr>
-                <td colSpan={10} className="text-center py-10 text-muted-foreground">
-                  {inventory.length === 0 ? "No inventory items yet" : "No items match your filter"}
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>

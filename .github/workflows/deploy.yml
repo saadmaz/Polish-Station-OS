@@ -256,7 +256,6 @@ jobs:
             rm $REMOTE_DIR/.prettierignore;
             rm $REMOTE_DIR/.gitignore;
             rm $REMOTE_DIR/.env.example;
-            rm $REMOTE_DIR/AGENTS.md;
             rm $REMOTE_DIR/DEPLOYMENT.md;
             rm $REMOTE_DIR/htaccess;
             !echo '=== deployed .htaccess ===';

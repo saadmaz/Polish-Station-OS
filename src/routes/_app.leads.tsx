@@ -1901,10 +1901,7 @@ function DateRangeFilter({
         <PopoverTrigger asChild>
           <button
             type="button"
-            className={cn(
-              "inline-flex items-center gap-1.5",
-              !hasValue && "hover:text-foreground",
-            )}
+            className={cn("inline-flex items-center gap-1.5", !hasValue && "hover:text-foreground")}
           >
             <CalendarRange className="h-3.5 w-3.5" />
             {hasValue

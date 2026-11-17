@@ -91,7 +91,7 @@ function withActionTimeout<T>(p: Promise<T>): Promise<T> {
 // Swatches 2-4 used to be literal copies of the (pre-2026-09-20) --info/
 // --success/--warning token values, which meant they inherited those
 // tokens' contrast failures as white-on-swatch avatar backgrounds
-// (3.87:1 / 3.02:1 / 2.04:1 — see UI_UX_AUDIT.md "Color Contrast"). Now
+// (3.87:1 / 3.02:1 / 2.04:1 — see docs/audits/ui-ux-audit.md "Color Contrast"). Now
 // wired to the tokens themselves so future token adjustments propagate
 // here instead of silently drifting back out of sync.
 // Swatches 5-7 (magenta/blue-purple/teal) weren't part of that audit

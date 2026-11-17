@@ -9,52 +9,41 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as HealthzRouteImport } from './routes/healthz'
-import { Route as DiagRouteImport } from './routes/diag'
-import { Route as ChangePinRouteImport } from './routes/change-pin'
-import { Route as BookRouteImport } from './routes/book'
-import { Route as AppRouteImport } from './routes/_app'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AppSubscribersRouteImport } from './routes/_app.subscribers'
-import { Route as AppStaffRouteImport } from './routes/_app.staff'
-import { Route as AppSettingsRouteImport } from './routes/_app.settings'
-import { Route as AppReportsRouteImport } from './routes/_app.reports'
-import { Route as AppPurchaseOrdersRouteImport } from './routes/_app.purchase-orders'
-import { Route as AppPosRouteImport } from './routes/_app.pos'
-import { Route as AppNotificationsRouteImport } from './routes/_app.notifications'
-import { Route as AppLeadsRouteImport } from './routes/_app.leads'
-import { Route as AppJobsRouteImport } from './routes/_app.jobs'
-import { Route as AppInventoryRouteImport } from './routes/_app.inventory'
-import { Route as AppInspectionRouteImport } from './routes/_app.inspection'
-import { Route as AppInquiryRouteImport } from './routes/_app.inquiry'
-import { Route as AppEquipmentRouteImport } from './routes/_app.equipment'
-import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
-import { Route as AppCustomersRouteImport } from './routes/_app.customers'
+import { Route as AppRouteImport } from './routes/_app'
+import { Route as BookRouteImport } from './routes/book'
+import { Route as ChangePinRouteImport } from './routes/change-pin'
+import { Route as DiagRouteImport } from './routes/diag'
+import { Route as HealthzRouteImport } from './routes/healthz'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as AppBookingsRouteImport } from './routes/_app.bookings'
-import { Route as ApiPublicNewsletterRouteImport } from './routes/api.public.newsletter'
-import { Route as ApiPublicGoogleLeadformRouteImport } from './routes/api.public.google-leadform'
-import { Route as ApiPublicContactRouteImport } from './routes/api.public.contact'
+import { Route as AppCustomersRouteImport } from './routes/_app.customers'
+import { Route as AppDashboardRouteImport } from './routes/_app.dashboard'
+import { Route as AppEquipmentRouteImport } from './routes/_app.equipment'
+import { Route as AppInquiryRouteImport } from './routes/_app.inquiry'
+import { Route as AppInspectionRouteImport } from './routes/_app.inspection'
+import { Route as AppInventoryRouteImport } from './routes/_app.inventory'
+import { Route as AppJobsRouteImport } from './routes/_app.jobs'
+import { Route as AppLeadsRouteImport } from './routes/_app.leads'
+import { Route as AppNotificationsRouteImport } from './routes/_app.notifications'
+import { Route as AppPosRouteImport } from './routes/_app.pos'
+import { Route as AppPurchaseOrdersRouteImport } from './routes/_app.purchase-orders'
+import { Route as AppReportsRouteImport } from './routes/_app.reports'
+import { Route as AppSettingsRouteImport } from './routes/_app.settings'
+import { Route as AppStaffRouteImport } from './routes/_app.staff'
+import { Route as AppSubscribersRouteImport } from './routes/_app.subscribers'
 import { Route as ApiPublicBookingRouteImport } from './routes/api.public.booking'
+import { Route as ApiPublicContactRouteImport } from './routes/api.public.contact'
+import { Route as ApiPublicGoogleLeadformRouteImport } from './routes/api.public.google-leadform'
+import { Route as ApiPublicNewsletterRouteImport } from './routes/api.public.newsletter'
 
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const HealthzRoute = HealthzRouteImport.update({
-  id: '/healthz',
-  path: '/healthz',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DiagRoute = DiagRouteImport.update({
-  id: '/diag',
-  path: '/diag',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChangePinRoute = ChangePinRouteImport.update({
-  id: '/change-pin',
-  path: '/change-pin',
+const AppRoute = AppRouteImport.update({
+  id: '/_app',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BookRoute = BookRouteImport.update({
@@ -62,83 +51,29 @@ const BookRoute = BookRouteImport.update({
   path: '/book',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppRoute = AppRouteImport.update({
-  id: '/_app',
+const ChangePinRoute = ChangePinRouteImport.update({
+  id: '/change-pin',
+  path: '/change-pin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const DiagRoute = DiagRouteImport.update({
+  id: '/diag',
+  path: '/diag',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AppSubscribersRoute = AppSubscribersRouteImport.update({
-  id: '/subscribers',
-  path: '/subscribers',
-  getParentRoute: () => AppRoute,
+const HealthzRoute = HealthzRouteImport.update({
+  id: '/healthz',
+  path: '/healthz',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AppStaffRoute = AppStaffRouteImport.update({
-  id: '/staff',
-  path: '/staff',
-  getParentRoute: () => AppRoute,
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const AppSettingsRoute = AppSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppReportsRoute = AppReportsRouteImport.update({
-  id: '/reports',
-  path: '/reports',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppPurchaseOrdersRoute = AppPurchaseOrdersRouteImport.update({
-  id: '/purchase-orders',
-  path: '/purchase-orders',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppPosRoute = AppPosRouteImport.update({
-  id: '/pos',
-  path: '/pos',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppNotificationsRoute = AppNotificationsRouteImport.update({
-  id: '/notifications',
-  path: '/notifications',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppLeadsRoute = AppLeadsRouteImport.update({
-  id: '/leads',
-  path: '/leads',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppJobsRoute = AppJobsRouteImport.update({
-  id: '/jobs',
-  path: '/jobs',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppInventoryRoute = AppInventoryRouteImport.update({
-  id: '/inventory',
-  path: '/inventory',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppInspectionRoute = AppInspectionRouteImport.update({
-  id: '/inspection',
-  path: '/inspection',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppInquiryRoute = AppInquiryRouteImport.update({
-  id: '/inquiry',
-  path: '/inquiry',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppEquipmentRoute = AppEquipmentRouteImport.update({
-  id: '/equipment',
-  path: '/equipment',
-  getParentRoute: () => AppRoute,
-} as any)
-const AppDashboardRoute = AppDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AppBookingsRoute = AppBookingsRouteImport.update({
+  id: '/bookings',
+  path: '/bookings',
   getParentRoute: () => AppRoute,
 } as any)
 const AppCustomersRoute = AppCustomersRouteImport.update({
@@ -146,19 +81,79 @@ const AppCustomersRoute = AppCustomersRouteImport.update({
   path: '/customers',
   getParentRoute: () => AppRoute,
 } as any)
-const AppBookingsRoute = AppBookingsRouteImport.update({
-  id: '/bookings',
-  path: '/bookings',
+const AppDashboardRoute = AppDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AppRoute,
 } as any)
-const ApiPublicNewsletterRoute = ApiPublicNewsletterRouteImport.update({
-  id: '/api/public/newsletter',
-  path: '/api/public/newsletter',
-  getParentRoute: () => rootRouteImport,
+const AppEquipmentRoute = AppEquipmentRouteImport.update({
+  id: '/equipment',
+  path: '/equipment',
+  getParentRoute: () => AppRoute,
 } as any)
-const ApiPublicGoogleLeadformRoute = ApiPublicGoogleLeadformRouteImport.update({
-  id: '/api/public/google-leadform',
-  path: '/api/public/google-leadform',
+const AppInquiryRoute = AppInquiryRouteImport.update({
+  id: '/inquiry',
+  path: '/inquiry',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInspectionRoute = AppInspectionRouteImport.update({
+  id: '/inspection',
+  path: '/inspection',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppInventoryRoute = AppInventoryRouteImport.update({
+  id: '/inventory',
+  path: '/inventory',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppJobsRoute = AppJobsRouteImport.update({
+  id: '/jobs',
+  path: '/jobs',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppLeadsRoute = AppLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppNotificationsRoute = AppNotificationsRouteImport.update({
+  id: '/notifications',
+  path: '/notifications',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPosRoute = AppPosRouteImport.update({
+  id: '/pos',
+  path: '/pos',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppPurchaseOrdersRoute = AppPurchaseOrdersRouteImport.update({
+  id: '/purchase-orders',
+  path: '/purchase-orders',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppReportsRoute = AppReportsRouteImport.update({
+  id: '/reports',
+  path: '/reports',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSettingsRoute = AppSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppStaffRoute = AppStaffRouteImport.update({
+  id: '/staff',
+  path: '/staff',
+  getParentRoute: () => AppRoute,
+} as any)
+const AppSubscribersRoute = AppSubscribersRouteImport.update({
+  id: '/subscribers',
+  path: '/subscribers',
+  getParentRoute: () => AppRoute,
+} as any)
+const ApiPublicBookingRoute = ApiPublicBookingRouteImport.update({
+  id: '/api/public/booking',
+  path: '/api/public/booking',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
@@ -166,9 +161,14 @@ const ApiPublicContactRoute = ApiPublicContactRouteImport.update({
   path: '/api/public/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicBookingRoute = ApiPublicBookingRouteImport.update({
-  id: '/api/public/booking',
-  path: '/api/public/booking',
+const ApiPublicGoogleLeadformRoute = ApiPublicGoogleLeadformRouteImport.update({
+  id: '/api/public/google-leadform',
+  path: '/api/public/google-leadform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicNewsletterRoute = ApiPublicNewsletterRouteImport.update({
+  id: '/api/public/newsletter',
+  path: '/api/public/newsletter',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -362,39 +362,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/healthz': {
-      id: '/healthz'
-      path: '/healthz'
-      fullPath: '/healthz'
-      preLoaderRoute: typeof HealthzRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/diag': {
-      id: '/diag'
-      path: '/diag'
-      fullPath: '/diag'
-      preLoaderRoute: typeof DiagRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/change-pin': {
-      id: '/change-pin'
-      path: '/change-pin'
-      fullPath: '/change-pin'
-      preLoaderRoute: typeof ChangePinRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/book': {
-      id: '/book'
-      path: '/book'
-      fullPath: '/book'
-      preLoaderRoute: typeof BookRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_app': {
@@ -404,109 +376,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/book': {
+      id: '/book'
+      path: '/book'
+      fullPath: '/book'
+      preLoaderRoute: typeof BookRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_app/subscribers': {
-      id: '/_app/subscribers'
-      path: '/subscribers'
-      fullPath: '/subscribers'
-      preLoaderRoute: typeof AppSubscribersRouteImport
-      parentRoute: typeof AppRoute
+    '/change-pin': {
+      id: '/change-pin'
+      path: '/change-pin'
+      fullPath: '/change-pin'
+      preLoaderRoute: typeof ChangePinRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_app/staff': {
-      id: '/_app/staff'
-      path: '/staff'
-      fullPath: '/staff'
-      preLoaderRoute: typeof AppStaffRouteImport
-      parentRoute: typeof AppRoute
+    '/diag': {
+      id: '/diag'
+      path: '/diag'
+      fullPath: '/diag'
+      preLoaderRoute: typeof DiagRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_app/settings': {
-      id: '/_app/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AppSettingsRouteImport
-      parentRoute: typeof AppRoute
+    '/healthz': {
+      id: '/healthz'
+      path: '/healthz'
+      fullPath: '/healthz'
+      preLoaderRoute: typeof HealthzRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_app/reports': {
-      id: '/_app/reports'
-      path: '/reports'
-      fullPath: '/reports'
-      preLoaderRoute: typeof AppReportsRouteImport
-      parentRoute: typeof AppRoute
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_app/purchase-orders': {
-      id: '/_app/purchase-orders'
-      path: '/purchase-orders'
-      fullPath: '/purchase-orders'
-      preLoaderRoute: typeof AppPurchaseOrdersRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/pos': {
-      id: '/_app/pos'
-      path: '/pos'
-      fullPath: '/pos'
-      preLoaderRoute: typeof AppPosRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/notifications': {
-      id: '/_app/notifications'
-      path: '/notifications'
-      fullPath: '/notifications'
-      preLoaderRoute: typeof AppNotificationsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/leads': {
-      id: '/_app/leads'
-      path: '/leads'
-      fullPath: '/leads'
-      preLoaderRoute: typeof AppLeadsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/jobs': {
-      id: '/_app/jobs'
-      path: '/jobs'
-      fullPath: '/jobs'
-      preLoaderRoute: typeof AppJobsRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/inventory': {
-      id: '/_app/inventory'
-      path: '/inventory'
-      fullPath: '/inventory'
-      preLoaderRoute: typeof AppInventoryRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/inspection': {
-      id: '/_app/inspection'
-      path: '/inspection'
-      fullPath: '/inspection'
-      preLoaderRoute: typeof AppInspectionRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/inquiry': {
-      id: '/_app/inquiry'
-      path: '/inquiry'
-      fullPath: '/inquiry'
-      preLoaderRoute: typeof AppInquiryRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/equipment': {
-      id: '/_app/equipment'
-      path: '/equipment'
-      fullPath: '/equipment'
-      preLoaderRoute: typeof AppEquipmentRouteImport
-      parentRoute: typeof AppRoute
-    }
-    '/_app/dashboard': {
-      id: '/_app/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AppDashboardRouteImport
+    '/_app/bookings': {
+      id: '/_app/bookings'
+      path: '/bookings'
+      fullPath: '/bookings'
+      preLoaderRoute: typeof AppBookingsRouteImport
       parentRoute: typeof AppRoute
     }
     '/_app/customers': {
@@ -516,25 +425,109 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCustomersRouteImport
       parentRoute: typeof AppRoute
     }
-    '/_app/bookings': {
-      id: '/_app/bookings'
-      path: '/bookings'
-      fullPath: '/bookings'
-      preLoaderRoute: typeof AppBookingsRouteImport
+    '/_app/dashboard': {
+      id: '/_app/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppRoute
     }
-    '/api/public/newsletter': {
-      id: '/api/public/newsletter'
-      path: '/api/public/newsletter'
-      fullPath: '/api/public/newsletter'
-      preLoaderRoute: typeof ApiPublicNewsletterRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_app/equipment': {
+      id: '/_app/equipment'
+      path: '/equipment'
+      fullPath: '/equipment'
+      preLoaderRoute: typeof AppEquipmentRouteImport
+      parentRoute: typeof AppRoute
     }
-    '/api/public/google-leadform': {
-      id: '/api/public/google-leadform'
-      path: '/api/public/google-leadform'
-      fullPath: '/api/public/google-leadform'
-      preLoaderRoute: typeof ApiPublicGoogleLeadformRouteImport
+    '/_app/inquiry': {
+      id: '/_app/inquiry'
+      path: '/inquiry'
+      fullPath: '/inquiry'
+      preLoaderRoute: typeof AppInquiryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/inspection': {
+      id: '/_app/inspection'
+      path: '/inspection'
+      fullPath: '/inspection'
+      preLoaderRoute: typeof AppInspectionRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/inventory': {
+      id: '/_app/inventory'
+      path: '/inventory'
+      fullPath: '/inventory'
+      preLoaderRoute: typeof AppInventoryRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/jobs': {
+      id: '/_app/jobs'
+      path: '/jobs'
+      fullPath: '/jobs'
+      preLoaderRoute: typeof AppJobsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/leads': {
+      id: '/_app/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof AppLeadsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/notifications': {
+      id: '/_app/notifications'
+      path: '/notifications'
+      fullPath: '/notifications'
+      preLoaderRoute: typeof AppNotificationsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/pos': {
+      id: '/_app/pos'
+      path: '/pos'
+      fullPath: '/pos'
+      preLoaderRoute: typeof AppPosRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/purchase-orders': {
+      id: '/_app/purchase-orders'
+      path: '/purchase-orders'
+      fullPath: '/purchase-orders'
+      preLoaderRoute: typeof AppPurchaseOrdersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/reports': {
+      id: '/_app/reports'
+      path: '/reports'
+      fullPath: '/reports'
+      preLoaderRoute: typeof AppReportsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/settings': {
+      id: '/_app/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AppSettingsRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/staff': {
+      id: '/_app/staff'
+      path: '/staff'
+      fullPath: '/staff'
+      preLoaderRoute: typeof AppStaffRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/_app/subscribers': {
+      id: '/_app/subscribers'
+      path: '/subscribers'
+      fullPath: '/subscribers'
+      preLoaderRoute: typeof AppSubscribersRouteImport
+      parentRoute: typeof AppRoute
+    }
+    '/api/public/booking': {
+      id: '/api/public/booking'
+      path: '/api/public/booking'
+      fullPath: '/api/public/booking'
+      preLoaderRoute: typeof ApiPublicBookingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/public/contact': {
@@ -544,11 +537,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/booking': {
-      id: '/api/public/booking'
-      path: '/api/public/booking'
-      fullPath: '/api/public/booking'
-      preLoaderRoute: typeof ApiPublicBookingRouteImport
+    '/api/public/google-leadform': {
+      id: '/api/public/google-leadform'
+      path: '/api/public/google-leadform'
+      fullPath: '/api/public/google-leadform'
+      preLoaderRoute: typeof ApiPublicGoogleLeadformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/newsletter': {
+      id: '/api/public/newsletter'
+      path: '/api/public/newsletter'
+      fullPath: '/api/public/newsletter'
+      preLoaderRoute: typeof ApiPublicNewsletterRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
