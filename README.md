@@ -242,10 +242,10 @@ npm run lint && npm run format:check && npm run typecheck && npm test && npm run
 
 ## Deployment
 
-| Environment | Branch    | URL                                                          | Status                                                                                                                                                               |
-| ----------- | --------- | ------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Development | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) | <img alt="development" src="https://img.shields.io/github/deployments/saadmaz/Polish-Station-POS/development?style=flat-square&label=development&labelColor=111827"> |
-| Production  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) | <img alt="production" src="https://img.shields.io/github/deployments/saadmaz/Polish-Station-POS/production?style=flat-square&label=production&labelColor=111827">    |
+| Environment | Branch    | URL                                                          | Status                                                                                                                                                            |
+| ----------- | --------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Development | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) | <img alt="development: awaiting host setup" src="https://img.shields.io/badge/development-awaiting%20host%20setup-6b7280?style=flat-square&labelColor=111827">    |
+| Production  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) | <img alt="production" src="https://img.shields.io/github/deployments/saadmaz/Polish-Station-POS/production?style=flat-square&label=production&labelColor=111827"> |
 
 ```mermaid
 flowchart LR

@@ -17,6 +17,9 @@ Development deploys are switched on per repository by setting the `DEVELOPMENT_E
 
 ### Setting up development
 
+Once development is live, replace the grey development badge in the README Deployment table with the live status badge:
+`https://img.shields.io/github/deployments/saadmaz/Polish-Station-POS/development?style=flat-square&label=development&labelColor=111827`.
+
 cPanel: create `dev.pos.polishstation.lk` as a Node.js app at the development `REMOTE_DIR`, with its own `.env`; set development-environment secrets for the `VITE_FIREBASE_*` values of a separate Firebase project.
 
 ### Promotion
