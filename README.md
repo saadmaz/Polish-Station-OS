@@ -160,9 +160,14 @@ npm run lint && npm run format:check && npm run typecheck && npm test && npm run
 
 ## Deployment
 
-Every push to `main` builds on GitHub Actions, uploads a bundled server over FTPS and restarts Passenger. Firestore rules and indexes deploy separately when they change.
+| Environment | Branch    | URL                                                          |
+| ----------- | --------- | ------------------------------------------------------------ |
+| Development | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) |
+| Production  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) |
 
-Setup, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). To release or roll back, follow the [runbooks](docs/runbooks/README.md).
+The Deploy workflow builds on GitHub Actions and uploads over FTPS to Passenger. Work merges into `develop` and deploys to development; a release pull request from `develop` into `main` deploys to production.
+
+Environments, setup, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). To release or roll back, follow the [runbooks](docs/runbooks/README.md).
 
 ## Documentation
 
