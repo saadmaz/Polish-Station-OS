@@ -1,0 +1,23 @@
+{
+  // Cloudflare configuration for Polish Station POS: a Worker that forwards
+  // every request to the Node server running in a Cloudflare Container.
+  // Deploys run from .github/workflows/deploy.yml.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "polish-station-pos",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "containers": [{ "class_name": "PosServer", "image": "./Dockerfile", "max_instances": 2 }],
+  "durable_objects": { "bindings": [{ "name": "POS_SERVER", "class_name": "PosServer" }] },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["PosServer"] }],
+  "observability": { "enabled": true },
+  "env": {
+    // `wrangler deploy --env development` publishes a separate Worker and container.
+    "development": {
+      "name": "polish-station-pos-development",
+      "containers": [{ "class_name": "PosServer", "image": "./Dockerfile", "max_instances": 1 }],
+      "durable_objects": { "bindings": [{ "name": "POS_SERVER", "class_name": "PosServer" }] },
+      "migrations": [{ "tag": "v1", "new_sqlite_classes": ["PosServer"] }],
+    },
+  },
+}

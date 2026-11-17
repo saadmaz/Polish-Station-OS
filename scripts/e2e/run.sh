@@ -4,7 +4,7 @@
 # FIREBASE_AUTH_EMULATOR_HOST for us; every script here refuses to run
 # without those set, so this can never touch the real production project.
 #
-# Serves the real production build (vite build + vite preview) rather than
+# Serves the real production build (vite build + server.mjs) rather than
 # `vite dev`: this app's SSR module graph is large enough (firebase-admin,
 # google-cloud/grpc, 46 UI components, ...) that Vite's on-demand dev-mode
 # compilation made the very first page load flaky/slow in CI-like conditions.
@@ -25,7 +25,7 @@ export FIREBASE_PROJECT_ID=demo-pos-polishstation
 echo "Building against the emulator config..."
 npm run build > /tmp/ps-e2e-build.log 2>&1 || { echo "Build failed:"; cat /tmp/ps-e2e-build.log; exit 1; }
 
-npx vite preview --host 127.0.0.1 --port 5173 --strictPort > /tmp/ps-e2e-server.log 2>&1 &
+PORT=5173 node server.mjs > /tmp/ps-e2e-server.log 2>&1 &
 SERVER_PID=$!
 trap 'kill $SERVER_PID 2>/dev/null' EXIT
 

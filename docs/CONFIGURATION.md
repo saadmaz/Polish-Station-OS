@@ -19,11 +19,11 @@ Copy [`.env.example`](../.env.example) to `.env`. Never commit `.env`.
 
 ## Where each value lives
 
-| Environment            | Source                                                                 |
-| ---------------------- | ---------------------------------------------------------------------- |
-| Local development      | `.env` copied from `.env.example`                                      |
-| Continuous integration | Placeholder Firebase values in `ci.yml`; no secrets                    |
-| Production build       | `production` GitHub Environment secrets (`VITE_FIREBASE_*`)            |
-| Production runtime     | Cloudflare secrets for the server variables (set during the migration) |
+| Environment            | Source                                                                                  |
+| ---------------------- | --------------------------------------------------------------------------------------- |
+| Local development      | `.env` copied from `.env.example`                                                       |
+| Continuous integration | Placeholder Firebase values in `ci.yml`; no secrets                                     |
+| Production build       | `production` GitHub Environment secrets (`VITE_FIREBASE_*`)                             |
+| Production runtime     | Worker secrets uploaded by the Deploy workflow from the GitHub secrets of the same name |
 
 Business settings (services, pricing, staff, devices) are managed in the app under **Settings**, not in environment variables.
