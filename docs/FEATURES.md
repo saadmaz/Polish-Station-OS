@@ -1,5 +1,9 @@
 # Polish Station POS: Feature Map
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 A complete tour of everything the Polish Station point-of-sale / shop-management system does, module by module, with the flows between them.
 
 > **Stack:** TanStack Start (React) + Firebase (Firestore, Auth) · client-side auth, no server-hop on login · offline PIN fallback on enrolled tills · single-location car-detailing shop in Dehiwala, Sri Lanka (LKR).

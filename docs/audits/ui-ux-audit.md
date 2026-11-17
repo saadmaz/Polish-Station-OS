@@ -1,5 +1,9 @@
 # Polish Station POS — UI/UX Defect Audit
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 **Scope:** every route under `src/routes/`, every reusable component under `src/components/` (including `src/components/ui/` shadcn primitives and `src/components/damage-diagram/`), audited against four categories: responsive layout, WCAG 2.1 AA color contrast, keyboard navigation, and Enter-key/form-submission behavior.
 
 **Method:** static read-only review of source. Color values are real conversions of this app's OKLCH design tokens (`src/styles.css`) to sRGB hex, with contrast ratios computed via the standard WCAG relative-luminance formula — not estimated. Breakpoints checked: 320, 375, 414, 768, 1024, 1440px, against Tailwind v4's default breakpoint scale (`sm`=640, `md`=768, `lg`=1024, `xl`=1280, `2xl`=1536 — this repo has no `tailwind.config.js` override). No files were modified.

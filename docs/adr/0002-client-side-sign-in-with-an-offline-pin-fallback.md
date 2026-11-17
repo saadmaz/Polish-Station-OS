@@ -1,5 +1,9 @@
 # ADR-0002: Client-side sign-in with an offline PIN fallback
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 | Status   | Date       |
 | -------- | ---------- |
 | Accepted | 2026-08-17 |

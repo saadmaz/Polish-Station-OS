@@ -1,5 +1,9 @@
 # ADR-0001: Firestore as the single source of truth with live listeners
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 | Status   | Date       |
 | -------- | ---------- |
 | Accepted | 2026-06-17 |

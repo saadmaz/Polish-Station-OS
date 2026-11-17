@@ -1,5 +1,9 @@
 # Production Deployment Guide · Polish Station POS
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 ## Environments
 
 | Environment   | Branch    | URL                                                          | Deploys                                                                      |
