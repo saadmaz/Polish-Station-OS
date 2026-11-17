@@ -85,7 +85,7 @@ Polish Station POS runs the day-to-day operation of the Polish Station detailing
 
 ## Architecture
 
-A TanStack Start application on Node.js 22, moving to Cloudflare, with Cloud Firestore as the single source of truth. Every screen is a live listener, staff sign in client-side against Firebase Auth, and Firestore rules enforce roles and per-module permissions at the data layer. Public endpoints accept submissions from the website and ad platforms.
+A TanStack Start application on Node.js 22, running in a Cloudflare Container behind a Worker, with Cloud Firestore as the single source of truth. Every screen is a live listener, staff sign in client-side against Firebase Auth, and Firestore rules enforce roles and per-module permissions at the data layer. Public endpoints accept submissions from the website and ad platforms.
 
 ```mermaid
 flowchart LR
@@ -128,7 +128,7 @@ flowchart LR
 | Email         | Resend                                                                                     |
 | Monitoring    | Sentry                                                                                     |
 | Build         | Vite, with the server bundled into a single file                                           |
-| Hosting       | Cloudflare (migration in progress); Firebase rules deployed by GitHub Actions              |
+| Hosting       | Cloudflare Worker + Container (Node 22), deployed by GitHub Actions with Wrangler          |
 | Tooling       | npm, Vitest, Playwright, Firebase Emulator Suite, ESLint, Prettier                         |
 
 </details>
@@ -163,6 +163,8 @@ Vite prints the local address when the server starts. Point `VITE_FIREBASE_*` at
 | --------------------------------- | --------------------------------------------------------- |
 | `npm run dev`                     | Start the development server                              |
 | `npm run build`                   | Production build: client, server bundle and build id      |
+| `npm start`                       | Run the production server (`server.mjs`) on port 8080     |
+| `npm run deploy`                  | Build and deploy to Cloudflare from your machine          |
 | `npm run lint`                    | Lint with ESLint (includes Prettier rules)                |
 | `npm run typecheck`               | Type-check with `tsc`                                     |
 | `npm run format` / `format:check` | Format with Prettier, or check without writing            |
@@ -218,6 +220,10 @@ Where each value is set, and which are secret: [docs/CONFIGURATION.md](docs/CONF
 │   └── styles.css           # Design tokens and global styles
 ├── firestore.rules          # Data-layer security rules
 ├── storage.rules            # Storage security rules
+├── worker/                  # Cloudflare Worker that fronts the container
+├── Dockerfile               # Production container image
+├── server.mjs               # Production Node server
+├── wrangler.jsonc           # Cloudflare configuration
 └── vite.config.ts           # Build configuration
 ```
 
@@ -254,9 +260,9 @@ flowchart LR
 ```
 
 > [!IMPORTANT]
-> Hosting is moving to Cloudflare. The version live at [www.pos.polishstation.lk](https://www.pos.polishstation.lk) stays on the previous host until the cut-over, and merges to `main` are not deployed until then.
+> The app is set up for Cloudflare: a Worker in front of a Cloudflare Container. Production deploys switch on with the `CLOUDFLARE_ENABLED` variable; until then the version live at [www.pos.polishstation.lk](https://www.pos.polishstation.lk) stays on the previous host.
 
-The migration plan, environments, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+Setup, environments, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 > [!TIP]
 > To ship or undo a release, follow the [release](docs/runbooks/release.md) and [rollback](docs/runbooks/rollback.md) runbooks.
