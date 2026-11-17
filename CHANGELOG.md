@@ -31,6 +31,16 @@
 
 ## [Unreleased]
 
+### Removed
+
+- Shared-hosting deployment: FTPS deploy workflow, Passenger start file, Apache configuration, server bundling step, keep-warm and keep-warm cron workflows, and the server maintenance workflow. Hosting moves to Cloudflare; the live version is unchanged until the cut-over.
+- Stale Bun lockfile and configuration (the project uses npm).
+- 32 unused UI components, an unused hook, two unreferenced sample PDFs and 26 unused dependencies. The app and its behaviour are unchanged.
+
+### Changed
+
+- End-to-end tests serve the production build with `vite preview`.
+
 ## [1.1.3] - 2026-11-17
 
 ### Changed

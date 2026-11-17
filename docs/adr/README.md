@@ -15,8 +15,9 @@ An architecture decision record (ADR) captures one significant technical decisio
 
 ## Index
 
-| ADR                                                                         | Decision                                                    | Status   |
-| --------------------------------------------------------------------------- | ----------------------------------------------------------- | -------- |
-| [0001](0001-firestore-as-the-single-source-of-truth-with-live-listeners.md) | Firestore as the single source of truth with live listeners | Accepted |
-| [0002](0002-client-side-sign-in-with-an-offline-pin-fallback.md)            | Client-side sign-in with an offline PIN fallback            | Accepted |
-| [0003](0003-bundled-server-deployed-over-ftps-to-passenger.md)              | Bundled server deployed over FTPS to Passenger              | Accepted |
+| ADR                                                                         | Decision                                                    | Status     |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------- | ---------- |
+| [0001](0001-firestore-as-the-single-source-of-truth-with-live-listeners.md) | Firestore as the single source of truth with live listeners | Accepted   |
+| [0002](0002-client-side-sign-in-with-an-offline-pin-fallback.md)            | Client-side sign-in with an offline PIN fallback            | Accepted   |
+| [0003](0003-bundled-server-deployed-over-ftps-to-passenger.md)              | Bundled server deployed over FTPS to Passenger              | Superseded |
+| [0004](0004-host-on-cloudflare.md)                                          | Host on Cloudflare                                          | Accepted   |

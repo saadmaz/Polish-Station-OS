@@ -41,10 +41,10 @@ if (getApps().length === 0) {
 export const adminAuth = getAuth();
 export const adminDb = getFirestore();
 
-// The shared host (cPanel/LiteSpeed) breaks long-lived gRPC/HTTP2 outbound
-// connections, which the Firestore SDK uses by default. Every server-side
-// read stalled 40-90s in silent gRPC retries and usually died as a 408.
-// REST mode makes each read an ordinary HTTPS request, which the host allows.
+// REST mode makes each Firestore read an ordinary HTTPS request instead of a
+// long-lived gRPC/HTTP2 connection. Serverless and shared hosts often break or
+// throttle those long-lived connections (reads stalled 40-90s on the previous
+// host), so REST is the portable choice.
 // Left on gRPC against the emulator: REST-mode admin requests weren't
 // getting the emulator's automatic firestore.rules bypass, so a *real*
 // service account (e.g. resolveUsername's read of `usernames`, denied to

@@ -101,7 +101,7 @@ function ensureStaffCache(): void {
 
 let warmLoopActive = false;
 
-/** Called by /healthz (boot self-warm + keep-warm cron). If the cache is cold,
+/** Called by /healthz (warm-up pings from open tabs). If the cache is cold,
  *  kick off a background loop (once) that keeps retrying the load until it
  *  succeeds, so a freshly-spawned worker becomes login-ready within a couple of
  *  seconds instead of only when the first (40s-stalling) login forces the load.

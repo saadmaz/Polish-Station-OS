@@ -85,12 +85,12 @@ Polish Station POS runs the day-to-day operation of the Polish Station detailing
 
 ## Architecture
 
-A TanStack Start application on Node.js 22 under Passenger, with Cloud Firestore as the single source of truth. Every screen is a live listener, staff sign in client-side against Firebase Auth, and Firestore rules enforce roles and per-module permissions at the data layer. Public endpoints accept submissions from the website and ad platforms.
+A TanStack Start application on Node.js 22, moving to Cloudflare, with Cloud Firestore as the single source of truth. Every screen is a live listener, staff sign in client-side against Firebase Auth, and Firestore rules enforce roles and per-module permissions at the data layer. Public endpoints accept submissions from the website and ad platforms.
 
 ```mermaid
 flowchart LR
   Tills(["Staff tills<br/>browser"]) -- Firebase Auth + live listeners --> Firestore[("Cloud Firestore")]
-  Tills --> App["TanStack Start app<br/>Node 22 on Passenger"]
+  Tills --> App["TanStack Start app<br/>Node 22"]
   Website["polishstation.lk"] -- "/api/public/*" --> App
   GoogleAds["Google Ads lead forms"] -- webhook --> App
   App -- firebase-admin --> Firestore
@@ -128,7 +128,7 @@ flowchart LR
 | Email         | Resend                                                                                     |
 | Monitoring    | Sentry                                                                                     |
 | Build         | Vite, with the server bundled into a single file                                           |
-| Hosting       | Node.js 22 on Phusion Passenger (cPanel), deployed by GitHub Actions                       |
+| Hosting       | Cloudflare (migration in progress); Firebase rules deployed by GitHub Actions              |
 | Tooling       | npm, Vitest, Playwright, Firebase Emulator Suite, ESLint, Prettier                         |
 
 </details>
@@ -163,7 +163,6 @@ Vite prints the local address when the server starts. Point `VITE_FIREBASE_*` at
 | --------------------------------- | --------------------------------------------------------- |
 | `npm run dev`                     | Start the development server                              |
 | `npm run build`                   | Production build: client, server bundle and build id      |
-| `npm start`                       | Run the production server (`start.mjs`)                   |
 | `npm run lint`                    | Lint with ESLint (includes Prettier rules)                |
 | `npm run typecheck`               | Type-check with `tsc`                                     |
 | `npm run format` / `format:check` | Format with Prettier, or check without writing            |
@@ -206,7 +205,7 @@ Where each value is set, and which are secret: [docs/CONFIGURATION.md](docs/CONF
 
 ```
 .
-├── .github/workflows/       # CI, deploy, rules deploy, keep-warm and server maintenance
+├── .github/workflows/       # CI and Firestore rules deploy
 ├── docs/                    # Feature map, deployment, booking rules, lead lifecycle, integrations, audits
 ├── public/                  # Static assets
 ├── scripts/                 # Build helpers, seeding, migrations, rules and e2e tests
@@ -219,8 +218,7 @@ Where each value is set, and which are secret: [docs/CONFIGURATION.md](docs/CONF
 │   └── styles.css           # Design tokens and global styles
 ├── firestore.rules          # Data-layer security rules
 ├── storage.rules            # Storage security rules
-├── htaccess                 # Apache / Passenger configuration deployed as .htaccess
-└── start.mjs                # Production entry point
+└── vite.config.ts           # Build configuration
 ```
 
 </details>
@@ -255,7 +253,10 @@ flowchart LR
   M -- auto deploy --> PROD(["Production"])
 ```
 
-The Deploy workflow builds on GitHub Actions and uploads over FTPS to Passenger. Environments, setup, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
+> [!IMPORTANT]
+> Hosting is moving to Cloudflare. The version live at [www.pos.polishstation.lk](https://www.pos.polishstation.lk) stays on the previous host until the cut-over, and merges to `main` are not deployed until then.
+
+The migration plan, environments, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
 > [!TIP]
 > To ship or undo a release, follow the [release](docs/runbooks/release.md) and [rollback](docs/runbooks/rollback.md) runbooks.
