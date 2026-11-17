@@ -4,7 +4,7 @@
 // ride. Pure/no side effects: safe to import from anywhere.
 
 // Fail fast instead of letting a stalled Firestore connection hold a request
-// until the web server's own timeout (LiteSpeed 408s at ~60s+, and the user
+// until the web server's own timeout (the request would fail with a 408 and the user
 // just sees a frozen UI the whole time).
 export function withTimeout<T>(p: Promise<T>, ms: number, what: string): Promise<T> {
   return Promise.race([

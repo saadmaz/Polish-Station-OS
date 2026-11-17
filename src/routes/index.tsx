@@ -57,13 +57,12 @@ function Login() {
   }
 
   // Warm the server the instant the login screen loads, before anyone has
-  // signed in. Passenger idles the Node process after ~5 min of no traffic,
-  // and the only other keep-warm layers (open-tab ping in auth.tsx, the
-  // GitHub Actions loop, the cPanel cron) all require either an existing
-  // session or infra outside this app to be running — none of them cover the
+  // signed in. An idle server can scale down after a few minutes of no
+  // traffic, and the other keep-warm layer (the open-tab ping in auth.tsx)
+  // needs an existing session, so it doesn't cover the
   // very first login of the day, which is exactly when a cold start turns
   // into a visible "couldn't reach the server" error. Firing here, and again
-  // a few seconds later in case the first hit lands mid-boot, buys the ~20s
+  // a few seconds later in case the first hit lands mid-boot, buys the
   // cold-start time back while the user is still picking their name/typing
   // their PIN instead of during the login request itself.
   // Also self-heals the real "keeps showing up" case: a till left on this

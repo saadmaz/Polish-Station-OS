@@ -5,18 +5,15 @@ import type {} from "@tanstack/react-start";
 // depends on (firebase-admin init + an open Firestore REST connection) hot,
 // so a real user's login never pays it cold.
 //
-// Background: on the shared LiteSpeed/Passenger host a cold worker takes ~9s
-// just to boot the Node bundle, and firebase-admin + the first Firestore REST
-// read add several more. A first-time user's login can't skip the uncached
-// `usernames` index read, so on a cold worker the total can blow past
-// LiteSpeed's proxy timeout → the 408 that surfaces as "Couldn't reach the
-// server" on the PIN pad. The existing keep-warm pings hit `/`, which runs SSR
-// but never imports firebase-admin, so that path was never actually warmed.
+// Background: a cold server instance pays for booting the bundle, initialising
+// firebase-admin and the first Firestore REST read. A first-time user's login
+// can't skip the uncached `usernames` index read, so a cold instance could
+// surface as "Couldn't reach the server" on the PIN pad. Pinging `/` runs SSR
+// but never imports firebase-admin, so that path would never be warmed.
 //
-// This endpoint is hit by (a) start.mjs on boot, (b) any open tab every few
-// minutes, and (c) the cron/Actions keep-warm, each of which now warms the
-// login path AND the token-verification path (change-PIN / staff mgmt), not
-// just the HTML tier.
+// Any open tab hits this endpoint every few minutes, warming the login path
+// AND the token-verification path (change-PIN / staff management), and the
+// response's X-Build-Id header tells open tabs when a new version is live.
 
 // Warm the ID-token verification path. `loginFn` *mints* a custom token (local
 // RSA signing, no network) but `changeOwnPinFn` and every staff-management
