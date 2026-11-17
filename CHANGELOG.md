@@ -1,11 +1,21 @@
 # Changelog
 
+<!-- nav -->
+<p align="center"><a href="README.md">README</a> · <a href="CONTRIBUTING.md">Contributing</a> · <a href="CODE_OF_CONDUCT.md">Code of Conduct</a> · <a href="SECURITY.md">Security</a> · <strong>Changelog</strong> · <a href="LICENSE">License</a></p>
+
 All notable changes to this project are documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.1.1] - 2026-11-17
+
+### Changed
+
+- Redesigned README with a brand banner, live release, CI and deployment badges, action buttons, feature grid, diagrams and collapsible panels.
+- Navigation bars and callouts across the contributing, security, conduct and documentation pages.
 
 ## [1.1.0] - 2026-11-17
 
@@ -43,6 +53,7 @@ First versioned release of Polish Station POS, covering everything in production
 - Documentation reorganised under `docs/`: feature map, deployment guide, integration contracts and audits.
 - Source files formatted to the project Prettier configuration.
 
-[Unreleased]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/saadmaz/Polish-Station-POS/releases/tag/v1.0.0

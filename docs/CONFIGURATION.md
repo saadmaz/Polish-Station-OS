@@ -1,5 +1,9 @@
 # Configuration
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 > Environment variables and settings for Polish Station POS. Part of the [project documentation](README.md).
 
 Copy [`.env.example`](../.env.example) to `.env`. Never commit `.env`.

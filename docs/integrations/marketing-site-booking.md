@@ -1,5 +1,9 @@
 # Marketing site integration: Booking requests
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 > How the marketing site's booking form submits requests to the POS public booking endpoint, and the payload the API accepts. Consumer: [Polish-Station-Website](https://github.com/saadmaz/Polish-Station-Website).
 
 ## Summary

@@ -1,5 +1,9 @@
 # Marketing site integration: Newsletter subscribers
 
+<!-- nav -->
+
+<sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
+
 > How the marketing site's newsletter and blog subscribe forms send sign-ups to the POS public newsletter endpoint. Consumer: [Polish-Station-Website](https://github.com/saadmaz/Polish-Station-Website).
 
 ## Summary

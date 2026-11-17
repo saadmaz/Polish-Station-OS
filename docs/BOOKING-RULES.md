@@ -1,5 +1,9 @@
 # Booking Rules — requirements
 
+<!-- nav -->
+
+<sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
+
 ## Status note (read this first)
 
 **UPDATE (2026-09-05, later the same day):** the feature described below has
