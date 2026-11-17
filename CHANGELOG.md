@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.1] - 2026-11-17
+
 ### Changed
 
 - Redesigned README with a brand banner, live release, CI and deployment badges, action buttons, feature grid, diagrams and collapsible panels.
@@ -51,6 +53,7 @@ First versioned release of Polish Station POS, covering everything in production
 - Documentation reorganised under `docs/`: feature map, deployment guide, integration contracts and audits.
 - Source files formatted to the project Prettier configuration.
 
-[Unreleased]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.0...HEAD
+[Unreleased]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.1...HEAD
+[1.1.1]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.0...v1.1.1
 [1.1.0]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/saadmaz/Polish-Station-POS/releases/tag/v1.0.0
