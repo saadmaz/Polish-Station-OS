@@ -1,5 +1,26 @@
 # Production Deployment Guide · Polish Station POS
 
+## Environments
+
+| Environment   | Branch    | URL                                                          | Deploys                                                                      |
+| ------------- | --------- | ------------------------------------------------------------ | ---------------------------------------------------------------------------- |
+| `development` | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) | Automatically on every merge into `develop`                                  |
+| `production`  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) | Automatically when `develop` is promoted to `main` by a release pull request |
+
+The Deploy workflow builds on GitHub Actions and uploads over FTPS to Passenger. Each environment is a GitHub Environment with its own variables (`APP_URL` and host settings) and secrets, so one workflow serves both. Production accepts deployments from `main` only; development from `develop` only.
+
+Development deploys are switched on per repository by setting the `DEVELOPMENT_ENABLED` repository variable to `true` once the development host exists. Until then, `develop` is built and tested by CI but not deployed.
+
+### Setting up development
+
+cPanel: create `dev.pos.polishstation.lk` as a Node.js app at the development `REMOTE_DIR`, with its own `.env`; set development-environment secrets for the `VITE_FIREBASE_*` values of a separate Firebase project.
+
+### Promotion
+
+1. Feature branches merge into `develop` and deploy to development.
+2. When development is verified, open a release pull request from `develop` into `main` (see [runbooks/release.md](runbooks/release.md)).
+3. Merging it deploys to production.
+
 Target: **https://www.pos.polishstation.lk**, hosted on **Zircon Hosting (cPanel)**, auto-deployed from GitHub `main`.
 
 This guide reflects the actual code in this repository as of this audit. Where something depends on Zircon's specific cPanel plan (feature availability, exact paths), it's called out explicitly instead of assumed.

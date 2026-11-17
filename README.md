@@ -8,7 +8,7 @@ Bookings, check-in, inspections, jobs, checkout, invoicing, inventory, purchasin
 
 [![App](https://img.shields.io/badge/app-pos.polishstation.lk-374151?style=flat-square&labelColor=111827)](https://www.pos.polishstation.lk)
 [![CI](https://github.com/saadmaz/Polish-Station-POS/actions/workflows/ci.yml/badge.svg)](https://github.com/saadmaz/Polish-Station-POS/actions/workflows/ci.yml)
-[![Version](https://img.shields.io/badge/version-v1.0.0-374151?style=flat-square&labelColor=111827)](https://github.com/saadmaz/Polish-Station-POS/releases)
+[![Version](https://img.shields.io/badge/version-v1.1.0-374151?style=flat-square&labelColor=111827)](https://github.com/saadmaz/Polish-Station-POS/releases)
 ![License](https://img.shields.io/badge/license-proprietary-374151?style=flat-square&labelColor=111827)
 
 [**pos.polishstation.lk**](https://www.pos.polishstation.lk) · [Documentation](docs/README.md) · [Report a bug](https://github.com/saadmaz/Polish-Station-POS/issues/new?template=bug_report.yml) · [Request a change](https://github.com/saadmaz/Polish-Station-POS/issues/new?template=feature_request.yml)
@@ -160,9 +160,14 @@ npm run lint && npm run format:check && npm run typecheck && npm test && npm run
 
 ## Deployment
 
-Every push to `main` builds on GitHub Actions, uploads a bundled server over FTPS and restarts Passenger. Firestore rules and indexes deploy separately when they change.
+| Environment | Branch    | URL                                                          |
+| ----------- | --------- | ------------------------------------------------------------ |
+| Development | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) |
+| Production  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) |
 
-Setup, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). To release or roll back, follow the [runbooks](docs/runbooks/README.md).
+The Deploy workflow builds on GitHub Actions and uploads over FTPS to Passenger. Work merges into `develop` and deploys to development; a release pull request from `develop` into `main` deploys to production.
+
+Environments, setup, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). To release or roll back, follow the [runbooks](docs/runbooks/README.md).
 
 ## Documentation
 
