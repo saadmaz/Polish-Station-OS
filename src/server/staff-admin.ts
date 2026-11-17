@@ -105,7 +105,7 @@ export interface Caller {
  * stall (the same class of hang that broke login before preferRest), and a
  * demoted/deactivated caller is already rejected by the fresh doc read below.
  * Every await is time-boxed so a stalled upstream fails in seconds instead of
- * hanging the request into LiteSpeed's 408.
+ * hanging the request until the web server times out.
  */
 export async function requireCaller(idToken: string): Promise<Caller | null> {
   let uid: string;

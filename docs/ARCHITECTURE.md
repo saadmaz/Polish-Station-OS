@@ -11,7 +11,7 @@
 ```mermaid
 flowchart LR
   Tills(["Staff tills<br/>browser"]) -- Firebase Auth + live listeners --> Firestore[("Cloud Firestore")]
-  Tills --> App["TanStack Start app<br/>Node 22 on Passenger"]
+  Tills --> App["TanStack Start app<br/>Node 22"]
   Website["polishstation.lk"] -- "/api/public/*" --> App
   GoogleAds["Google Ads lead forms"] -- webhook --> App
   App -- firebase-admin --> Firestore
@@ -44,7 +44,6 @@ The full module tour, with flow diagrams, is in [FEATURES.md](FEATURES.md).
 | `src/routes/healthz.ts`            | Health check used by the deploy warm-up                                                   |
 | `src/lib/`                         | Firebase clients, auth and domain logic (jobs, leads, inspections, money) with unit tests |
 | `src/server/`                      | Server-only modules                                                                       |
-| `start.mjs`                        | Production entry point under Passenger                                                    |
 | `firestore.rules`, `storage.rules` | Data-layer security rules                                                                 |
 
 Significant decisions are recorded in [adr/](adr/README.md).

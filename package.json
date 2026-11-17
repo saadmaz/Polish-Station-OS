@@ -17,14 +17,12 @@
     "node": ">=22.0.0"
   },
   "type": "module",
-  "main": "start.mjs",
   "sideEffects": false,
   "scripts": {
     "dev": "vite dev",
-    "build": "node scripts/write-build-id.mjs && vite build && node scripts/bundle-server.mjs",
+    "build": "node scripts/write-build-id.mjs && vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
-    "start": "node start.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",

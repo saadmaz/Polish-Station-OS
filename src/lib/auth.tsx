@@ -93,10 +93,8 @@ export function withClientTimeout<T>(p: Promise<T>, ms: number, what: string): P
  * The app runs on shared hosting whose outbound network intermittently stalls a
  * single server-function call: the request reaches the server and simply
  * never returns (observed hanging 45s+), even on a warm worker. The same
- * stall shows up for minutes at a time right after a deploy, while Passenger
- * respawns the Node process and CI's own warm-up loop (up to ~60s, see
- * .github/workflows/deploy.yml) is still chasing /healthz. A keep-warm can't
- * fix either case, so the client time-boxes each attempt and retries: 8
+ * stall can show up for a while right after a deploy, while the server
+ * restarts. A keep-warm can't fix either case, so the client time-boxes each attempt and retries: 8
  * attempts at 10s plus a 1.5s pause between them budgets ~91s total, enough
  * to ride out a typical deploy-restart window as a longer spinner instead of
  * a hard "couldn't reach the server" that makes someone re-enter their PIN.
@@ -390,13 +388,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [staff, touchActivity]);
 
   // Keep the app server warm while anyone is signed in. A loaded SPA talks
-  // straight to Firestore, so the Node process gets no traffic and Passenger
-  // idles it out (~5 min), and then the next server function (add user, change
-  // PIN) pays a ~20s cold start and 408s. Pinging /healthz (not /) every 4 min
+  // straight to Firestore, so the server gets no traffic and can idle out, and
+  // then the next server function (add user, change PIN) pays a cold start. Pinging /healthz (not /) every 4 min
   // from any open tab keeps the login path specifically warm: it exercises
   // firebase-admin + a Firestore connection, which a bare `/` SSR ping never
   // touches. So a manager's open dashboard keeps a new employee's first login
-  // on a shop tablet fast. Complements PassengerMinInstances and the cron.
+  // on a shop tablet fast.
   // Same stale-bundle check as the login screen (see src/routes/index.tsx),
   // but softer here: a signed-in tab may be mid-checkout, so nudge with a
   // dismissible toast instead of reloading out from under someone. Fires at
