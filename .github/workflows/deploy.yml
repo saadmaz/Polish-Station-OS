@@ -1,18 +1,34 @@
-name: Build and deploy via FTP
+name: Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [main, develop]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-${{ github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
-  build-and-deploy:
-    name: Build, package, and FTP deploy
+  deploy:
+    # main deploys to production; develop deploys to development once the
+    # DEVELOPMENT_ENABLED repository variable is set to "true".
+    if: github.ref_name == 'main' || vars.DEVELOPMENT_ENABLED == 'true'
+    name: ${{ github.ref_name == 'main' && 'Production' || 'Development' }}
+    environment:
+      name: ${{ github.ref_name == 'main' && 'production' || 'development' }}
+      url: ${{ vars.APP_URL }}
+    env:
+      APP_URL: ${{ vars.APP_URL }}
+      REMOTE_DIR: ${{ vars.REMOTE_DIR }}
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
           cache: npm
@@ -105,7 +121,7 @@ jobs:
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
           sudo apt-get update -y && sudo apt-get install -y lftp
-          REMOTE_DIR=/home/polishst/pos.polishstation.lk
+          if [ -z "$REMOTE_DIR" ]; then echo "::error::REMOTE_DIR is not set for this environment"; exit 1; fi
 
           deploy_once() {
             lftp -c "
@@ -156,7 +172,7 @@ jobs:
         timeout-minutes: 3
         run: |
           for i in $(seq 1 12); do
-            body=$(curl -s --max-time 30 https://pos.polishstation.lk/healthz || echo ERR)
+            body=$(curl -s --max-time 30 "$APP_URL/healthz" || echo ERR)
             echo "warm-up $i -> $body"
             if [ "$body" = "ok" ]; then
               echo "App warm."
@@ -184,7 +200,7 @@ jobs:
           FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
           FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         run: |
-          REMOTE_DIR=/home/polishst/pos.polishstation.lk
+          if [ -z "$REMOTE_DIR" ]; then echo "::error::REMOTE_DIR is not set for this environment"; exit 1; fi
 
           # This step is purely informational (if: always(), and the main
           # session below is || true'd), but a still-active FTP block from
@@ -267,7 +283,5 @@ jobs:
           " 2>&1 || true
 
           echo "=== Live site check ==="
-          for host in pos.polishstation.lk www.pos.polishstation.lk; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "https://$host/" || echo "ERR")
-            echo "https://$host/ -> $code"
-          done
+          code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 30 "$APP_URL/" || echo "ERR")
+          echo "$APP_URL/ -> $code"
