@@ -4,7 +4,7 @@
 
 <sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
 
-> How Polish Station POS is built. Part of the [project documentation](README.md).
+> How Polish Station OS is built. Part of the [project documentation](README.md).
 
 ## Overview
 

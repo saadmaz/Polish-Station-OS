@@ -2,24 +2,24 @@
 
 <div align="center">
 
-<img src=".github/assets/banner.svg" alt="Polish Station POS: Point-of-sale and shop-management platform for Polish Station." width="100%">
+<img src=".github/assets/banner.svg" alt="Polish Station OS: Operations system for Polish Station." width="100%">
 
 <br/>
 
 <p><strong>Bookings, check-in, inspections, jobs, checkout, invoicing, inventory, purchasing, staff and reporting, live across every till.</strong></p>
 
-<a href="https://github.com/saadmaz/Polish-Station-POS/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/saadmaz/Polish-Station-POS?include_prereleases&style=flat-square&label=release&labelColor=111827&color=e5251f"></a>
-<a href="https://github.com/saadmaz/Polish-Station-POS/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/saadmaz/Polish-Station-POS/actions/workflows/ci.yml/badge.svg?branch=develop"></a>
-<a href="https://github.com/saadmaz/Polish-Station-POS/deployments"><img alt="Production deployment" src="https://img.shields.io/github/deployments/saadmaz/Polish-Station-POS/production?style=flat-square&label=production&labelColor=111827&logo=github"></a>
-<a href="https://github.com/saadmaz/Polish-Station-POS/commits/develop"><img alt="Last commit" src="https://img.shields.io/github/last-commit/saadmaz/Polish-Station-POS/develop?style=flat-square&labelColor=111827&color=374151"></a>
+<a href="https://github.com/saadmaz/Polish-Station-OS/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/saadmaz/Polish-Station-OS?include_prereleases&style=flat-square&label=release&labelColor=111827&color=e5251f"></a>
+<a href="https://github.com/saadmaz/Polish-Station-OS/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/saadmaz/Polish-Station-OS/actions/workflows/ci.yml/badge.svg?branch=develop"></a>
+<a href="https://github.com/saadmaz/Polish-Station-OS/deployments"><img alt="Production deployment" src="https://img.shields.io/github/deployments/saadmaz/Polish-Station-OS/production?style=flat-square&label=production&labelColor=111827&logo=github"></a>
+<a href="https://github.com/saadmaz/Polish-Station-OS/commits/develop"><img alt="Last commit" src="https://img.shields.io/github/last-commit/saadmaz/Polish-Station-OS/develop?style=flat-square&labelColor=111827&color=374151"></a>
 <img alt="License" src="https://img.shields.io/badge/license-proprietary-374151?style=flat-square&labelColor=111827">
 
 <br/>
 
-<a href="https://www.pos.polishstation.lk"><img alt="Visit pos.polishstation.lk" src="https://img.shields.io/badge/Visit%20pos.polishstation.lk-1f1f1f?style=for-the-badge&logo=googlechrome&logoColor=white"></a>
+<a href="https://os.polishstation.lk"><img alt="Visit os.polishstation.lk" src="https://img.shields.io/badge/Visit%20os.polishstation.lk-1f1f1f?style=for-the-badge&logo=googlechrome&logoColor=white"></a>
 <a href="docs/README.md"><img alt="Documentation" src="https://img.shields.io/badge/Documentation-1f1f1f?style=for-the-badge&logo=readthedocs&logoColor=white"></a>
-<a href="https://github.com/saadmaz/Polish-Station-POS/issues/new?template=bug_report.yml"><img alt="Report a bug" src="https://img.shields.io/badge/Report%20a%20bug-1f1f1f?style=for-the-badge&logo=github&logoColor=white"></a>
-<a href="https://github.com/saadmaz/Polish-Station-POS/issues/new?template=feature_request.yml"><img alt="Request a change" src="https://img.shields.io/badge/Request%20a%20change-1f1f1f?style=for-the-badge&logo=github&logoColor=white"></a>
+<a href="https://github.com/saadmaz/Polish-Station-OS/issues/new?template=bug_report.yml"><img alt="Report a bug" src="https://img.shields.io/badge/Report%20a%20bug-1f1f1f?style=for-the-badge&logo=github&logoColor=white"></a>
+<a href="https://github.com/saadmaz/Polish-Station-OS/issues/new?template=feature_request.yml"><img alt="Request a change" src="https://img.shields.io/badge/Request%20a%20change-1f1f1f?style=for-the-badge&logo=github&logoColor=white"></a>
 
 <br/>
 
@@ -57,15 +57,15 @@
 
 ## About
 
-Polish Station POS runs the day-to-day operation of the Polish Station detailing studio in Dehiwala, Sri Lanka. Staff use it on shared tills to take bookings, check vehicles in, record inspections, run jobs, take payment and manage stock, while the website feeds it leads, bookings and subscribers through a public intake API.
+Polish Station OS runs the day-to-day operation of the Polish Station detailing studio in Dehiwala, Sri Lanka. Staff use it on shared tills to take bookings, check vehicles in, record inspections, run jobs, take payment and manage stock, while the website feeds it leads, bookings and subscribers through a public intake API.
 
-| At a glance      |                                                          |
-| ---------------- | -------------------------------------------------------- |
-| **Organisation** | Polish Station (Pvt) Ltd                                 |
-| **Status**       | Live                                                     |
-| **Production**   | [pos.polishstation.lk](https://www.pos.polishstation.lk) |
-| **Contact**      | [info@polishstation.lk](mailto:info@polishstation.lk)    |
-| **Maintainer**   | [Saad Mazhar](https://github.com/saadmaz)                |
+| At a glance      |                                                       |
+| ---------------- | ----------------------------------------------------- |
+| **Organisation** | Polish Station (Pvt) Ltd                              |
+| **Status**       | Live                                                  |
+| **Production**   | [os.polishstation.lk](https://os.polishstation.lk)    |
+| **Contact**      | [info@polishstation.lk](mailto:info@polishstation.lk) |
+| **Maintainer**   | [Saad Mazhar](https://github.com/saadmaz)             |
 
 <p align="right"><a href="#readme-top">Back to top ↑</a></p>
 
@@ -147,8 +147,8 @@ flowchart LR
 ### Install and run
 
 ```sh
-git clone https://github.com/saadmaz/Polish-Station-POS.git
-cd Polish-Station-POS
+git clone https://github.com/saadmaz/Polish-Station-OS.git
+cd Polish-Station-OS
 npm ci
 cp .env.example .env    # fill in the Firebase web config and server credentials
 npm run dev
@@ -246,10 +246,10 @@ npm run lint && npm run format:check && npm run typecheck && npm test && npm run
 
 ## Deployment
 
-| Environment | Branch    | URL                                                          | Status                                                                                                                                                            |
-| ----------- | --------- | ------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Development | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) | <img alt="development: awaiting host setup" src="https://img.shields.io/badge/development-awaiting%20host%20setup-6b7280?style=flat-square&labelColor=111827">    |
-| Production  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) | <img alt="production" src="https://img.shields.io/github/deployments/saadmaz/Polish-Station-POS/production?style=flat-square&label=production&labelColor=111827"> |
+| Environment | Branch    | URL                                                        | Status                                                                                                                                                           |
+| ----------- | --------- | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Development | `develop` | [dev.os.polishstation.lk](https://dev.os.polishstation.lk) | <img alt="development: awaiting host setup" src="https://img.shields.io/badge/development-awaiting%20host%20setup-6b7280?style=flat-square&labelColor=111827">   |
+| Production  | `main`    | [os.polishstation.lk](https://os.polishstation.lk)         | <img alt="production" src="https://img.shields.io/github/deployments/saadmaz/Polish-Station-OS/production?style=flat-square&label=production&labelColor=111827"> |
 
 ```mermaid
 flowchart LR
@@ -260,7 +260,7 @@ flowchart LR
 ```
 
 > [!IMPORTANT]
-> The app is set up for Cloudflare: a Worker in front of a Cloudflare Container. Production deploys switch on with the `CLOUDFLARE_ENABLED` variable; until then the version live at [www.pos.polishstation.lk](https://www.pos.polishstation.lk) stays on the previous host.
+> The app is set up for Cloudflare: a Worker in front of a Cloudflare Container. Production deploys switch on with the `CLOUDFLARE_ENABLED` variable.
 
 Setup, environments, secrets and post-deployment checks are in [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
@@ -286,9 +286,9 @@ Every STTPS repository uses the same documentation layout.
 
 ## Releases and versioning
 
-[![Latest release](https://img.shields.io/github/v/release/saadmaz/Polish-Station-POS?include_prereleases&style=for-the-badge&label=latest%20release&labelColor=111827&color=e5251f)](https://github.com/saadmaz/Polish-Station-POS/releases)
+[![Latest release](https://img.shields.io/github/v/release/saadmaz/Polish-Station-OS?include_prereleases&style=for-the-badge&label=latest%20release&labelColor=111827&color=e5251f)](https://github.com/saadmaz/Polish-Station-OS/releases)
 
-The project follows [Semantic Versioning](https://semver.org). Every release is tagged `vX.Y.Z`, published on the [Releases](https://github.com/saadmaz/Polish-Station-POS/releases) page with its notes, and recorded in [CHANGELOG.md](CHANGELOG.md). The procedure is in [docs/runbooks/release.md](docs/runbooks/release.md).
+The project follows [Semantic Versioning](https://semver.org). Every release is tagged `vX.Y.Z`, published on the [Releases](https://github.com/saadmaz/Polish-Station-OS/releases) page with its notes, and recorded in [CHANGELOG.md](CHANGELOG.md). The procedure is in [docs/runbooks/release.md](docs/runbooks/release.md).
 
 <p align="right"><a href="#readme-top">Back to top ↑</a></p>
 

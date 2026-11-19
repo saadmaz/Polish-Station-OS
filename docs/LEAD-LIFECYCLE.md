@@ -1,4 +1,4 @@
-# Lead Lifecycle — How Leads Flow Through the POS
+# Lead Lifecycle — How Leads Flow Through the OS
 
 <!-- nav -->
 

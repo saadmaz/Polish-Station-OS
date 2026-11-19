@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src=".github/assets/license.svg" alt="Polish Station POS: License" width="100%">
+<img src=".github/assets/license.svg" alt="Polish Station OS: License" width="100%">
 
 <br/>
 

@@ -1,4 +1,4 @@
-# Polish Station POS: Feature Map
+# Polish Station OS: Feature Map
 
 <!-- nav -->
 

@@ -2,11 +2,11 @@
 
 <div align="center">
 
-<img src=".github/assets/contributing.svg" alt="Polish Station POS: Contributing" width="100%">
+<img src=".github/assets/contributing.svg" alt="Polish Station OS: Contributing" width="100%">
 
 <br/>
 
-<p><strong>Thanks for helping build Polish Station POS. This guide is the single source of truth for how work is planned, built, reviewed and released.</strong></p>
+<p><strong>Thanks for helping build Polish Station OS. This guide is the single source of truth for how work is planned, built, reviewed and released.</strong></p>
 
 <a href="README.md"><img alt="README" src="https://img.shields.io/badge/README-374151?style=for-the-badge&labelColor=111827"></a>
 <a href="CONTRIBUTING.md"><img alt="Contributing" src="https://img.shields.io/badge/Contributing-e5251f?style=for-the-badge&labelColor=111827"></a>

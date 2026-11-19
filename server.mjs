@@ -140,7 +140,7 @@ const server = createServer(async (req, res) => {
 });
 
 server.listen(PORT, "0.0.0.0", () => {
-  console.log(`[startup] Polish Station POS listening on ${PORT}`);
+  console.log(`[startup] Polish Station OS listening on ${PORT}`);
   // Warm firebase-admin and the login path as soon as the instance starts.
   Promise.resolve(handler.fetch(new Request("http://127.0.0.1/healthz"), {}, {}))
     .then((r) => console.log("[startup] warm-up /healthz ->", r.status))

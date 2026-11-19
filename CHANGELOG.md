@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src=".github/assets/changelog.svg" alt="Polish Station POS: Changelog" width="100%">
+<img src=".github/assets/changelog.svg" alt="Polish Station OS: Changelog" width="100%">
 
 <br/>
 
@@ -21,15 +21,19 @@
 
 <div align="center">
 
-<a href="https://github.com/saadmaz/Polish-Station-POS/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/saadmaz/Polish-Station-POS?include_prereleases&style=flat-square&label=latest%20release&labelColor=111827&color=e5251f"></a>
-<a href="https://github.com/saadmaz/Polish-Station-POS/compare/main...develop"><img alt="Changes waiting for release" src="https://img.shields.io/github/commits-difference/saadmaz/Polish-Station-POS?base=main&head=develop&style=flat-square&label=unreleased%20commits&labelColor=111827&color=374151"></a>
+<a href="https://github.com/saadmaz/Polish-Station-OS/releases"><img alt="Latest release" src="https://img.shields.io/github/v/release/saadmaz/Polish-Station-OS?include_prereleases&style=flat-square&label=latest%20release&labelColor=111827&color=e5251f"></a>
+<a href="https://github.com/saadmaz/Polish-Station-OS/compare/main...develop"><img alt="Changes waiting for release" src="https://img.shields.io/github/commits-difference/saadmaz/Polish-Station-OS?base=main&head=develop&style=flat-square&label=unreleased%20commits&labelColor=111827&color=374151"></a>
 
 </div>
 
 > [!NOTE]
-> The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Each version links to its full comparison at the bottom of this page, and to its [release notes](https://github.com/saadmaz/Polish-Station-POS/releases).
+> The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html). Each version links to its full comparison at the bottom of this page, and to its [release notes](https://github.com/saadmaz/Polish-Station-OS/releases).
 
 ## [Unreleased]
+
+### Changed
+
+- Renamed from Polish Station POS to **Polish Station OS**: the repository (`Polish-Station-OS`), package and Worker names (`polish-station-os`, `polish-station-os-development`) and the hostnames, now `os.polishstation.lk` and `dev.os.polishstation.lk`. The checkout screen keeps its POS / Checkout name, and the Firebase project ID `pos-polishstation` is unchanged.
 
 ## [1.3.1] - 2026-11-18
 
@@ -112,12 +116,12 @@ First versioned release of Polish Station POS, covering everything in production
 - Documentation reorganised under `docs/`: feature map, deployment guide, integration contracts and audits.
 - Source files formatted to the project Prettier configuration.
 
-[Unreleased]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.3.1...HEAD
-[1.3.1]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.3.0...v1.3.1
-[1.3.0]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.2.0...v1.3.0
-[1.2.0]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.3...v1.2.0
-[1.1.3]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.2...v1.1.3
-[1.1.2]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.1...v1.1.2
-[1.1.1]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.1.0...v1.1.1
-[1.1.0]: https://github.com/saadmaz/Polish-Station-POS/compare/v1.0.0...v1.1.0
-[1.0.0]: https://github.com/saadmaz/Polish-Station-POS/releases/tag/v1.0.0
+[Unreleased]: https://github.com/saadmaz/Polish-Station-OS/compare/v1.3.1...HEAD
+[1.3.1]: https://github.com/saadmaz/Polish-Station-OS/compare/v1.3.0...v1.3.1
+[1.3.0]: https://github.com/saadmaz/Polish-Station-OS/compare/v1.2.0...v1.3.0
+[1.2.0]: https://github.com/saadmaz/Polish-Station-OS/compare/v1.1.3...v1.2.0
+[1.1.3]: https://github.com/saadmaz/Polish-Station-OS/compare/v1.1.2...v1.1.3
+[1.1.2]: https://github.com/saadmaz/Polish-Station-OS/compare/v1.1.1...v1.1.2
+[1.1.1]: https://github.com/saadmaz/Polish-Station-OS/compare/v1.1.0...v1.1.1
+[1.1.0]: https://github.com/saadmaz/Polish-Station-OS/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/saadmaz/Polish-Station-OS/releases/tag/v1.0.0
