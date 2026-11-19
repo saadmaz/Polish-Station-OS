@@ -1,4 +1,4 @@
-// Cloudflare Worker in front of the Polish Station POS container. Every
+// Cloudflare Worker in front of the Polish Station OS container. Every
 // request is forwarded to the Node server in the container (see Dockerfile and
 // server.mjs). Runtime secrets are Worker secrets, passed to the container as
 // environment variables.

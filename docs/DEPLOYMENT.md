@@ -4,17 +4,17 @@
 
 <sub><a href="../README.md">Project README</a> · <a href="README.md">Documentation index</a></sub>
 
-> How Polish Station POS reaches production. Part of the [project documentation](README.md).
+> How Polish Station OS reaches production. Part of the [project documentation](README.md).
 
 > [!IMPORTANT]
-> The app runs on **Cloudflare**: a Worker in front of the Node server in a Cloudflare Container. Production deploys switch on with the `CLOUDFLARE_ENABLED` repository variable. Until you switch them on and move DNS, the version live at [www.pos.polishstation.lk](https://www.pos.polishstation.lk) stays on the previous host, unchanged.
+> The app runs on **Cloudflare**: a Worker in front of the Node server in a Cloudflare Container. Production deploys switch on with the `CLOUDFLARE_ENABLED` repository variable. Nothing is served at os.polishstation.lk until you switch them on and attach the domain.
 
 ## Environments
 
-| Environment   | Branch    | URL                                                          | Cloudflare Worker                |
-| ------------- | --------- | ------------------------------------------------------------ | -------------------------------- |
-| `development` | `develop` | [dev.pos.polishstation.lk](https://dev.pos.polishstation.lk) | `polish-station-pos-development` |
-| `production`  | `main`    | [www.pos.polishstation.lk](https://www.pos.polishstation.lk) | `polish-station-pos`             |
+| Environment   | Branch    | URL                                                        | Cloudflare Worker               |
+| ------------- | --------- | ---------------------------------------------------------- | ------------------------------- |
+| `development` | `develop` | [dev.os.polishstation.lk](https://dev.os.polishstation.lk) | `polish-station-os-development` |
+| `production`  | `main`    | [os.polishstation.lk](https://os.polishstation.lk)         | `polish-station-os`             |
 
 Each is a GitHub Environment with its own variables (`APP_URL`) and secrets. Production accepts deployments from `main` only; development from `develop` only.
 
@@ -54,9 +54,9 @@ flowchart LR
 1. **Cloudflare API token.** Create a token with the _Edit Cloudflare Workers_ template plus _Containers: Edit_, and store it as the `CLOUDFLARE_API_TOKEN` repository secret. `CLOUDFLARE_ACCOUNT_ID` is already set as a repository variable.
 2. **Runtime secrets.** `FIREBASE_PROJECT_ID`, `FIREBASE_CLIENT_EMAIL` and `FIREBASE_PRIVATE_KEY` are already repository secrets. Add `RESEND_API_KEY`, `LEADS_NOTIFY_EMAIL` and `GOOGLE_ADS_LEAD_WEBHOOK_KEY` from the old server's `.env`, and `VITE_SENTRY_DSN` if Sentry is used.
 3. **Switch on deploys.** Set the repository variable `CLOUDFLARE_ENABLED` to `true`, then run the **Deploy** workflow on `main`.
-4. **Domains.** In the Worker's settings, add `www.pos.polishstation.lk` (and `pos.polishstation.lk`) as custom domains, and add a Redirect Rule from `pos.polishstation.lk` to `www.pos.polishstation.lk` (301).
+4. **Domains.** First add `os.polishstation.lk` to `SERVICE_HOSTS` (with a `services` binding to `polish-station-os`) in the `polish-station-maintenance` Worker and redeploy it; its `*.polishstation.lk` route otherwise answers the new hostname with the maintenance page. Then add `os.polishstation.lk` as a custom domain in this Worker's settings.
 5. **Cut over.** Confirm staff can sign in on the Cloudflare URL, then retire the previous host.
-6. Repeat steps 2 to 4 for development with `dev.pos.polishstation.lk`, then set `DEVELOPMENT_ENABLED` to `true`.
+6. Repeat steps 2 to 4 for development with `dev.os.polishstation.lk`, then set `DEVELOPMENT_ENABLED` to `true`.
 
 ## Run the production build locally
 

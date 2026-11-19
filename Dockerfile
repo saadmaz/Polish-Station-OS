@@ -1,4 +1,4 @@
-# Polish Station POS production image, run by Cloudflare Containers.
+# Polish Station OS production image, run by Cloudflare Containers.
 # The app is built before the image (npm run build in CI), so this image only
 # installs production dependencies and copies the build output.
 FROM node:22-slim

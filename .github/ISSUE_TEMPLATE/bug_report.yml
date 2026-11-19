@@ -12,7 +12,7 @@ body:
     attributes:
       label: Screen, page or endpoint
       description: Where did it happen?
-      placeholder: https://www.pos.polishstation.lk/
+      placeholder: https://os.polishstation.lk/
     validations:
       required: true
   - type: textarea

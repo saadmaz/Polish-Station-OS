@@ -4,11 +4,11 @@
 
 <sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
 
-> How the marketing site's booking form submits requests to the POS public booking endpoint, and the payload the API accepts. Consumer: [Polish-Station-Website](https://github.com/saadmaz/Polish-Station-Website).
+> How the marketing site's booking form submits requests to the OS public booking endpoint, and the payload the API accepts. Consumer: [Polish-Station-Website](https://github.com/saadmaz/Polish-Station-Website).
 
 ## Summary
 
-Fix the booking-request form on the Bookings page so it matches what the POS backend actually accepts. Submissions currently fail validation outright if they don't match the shape below exactly.
+Fix the booking-request form on the Bookings page so it matches what the OS backend actually accepts. Submissions currently fail validation outright if they don't match the shape below exactly.
 
 ## Update: stop appending "Preferred time" to `notes`
 
@@ -22,7 +22,7 @@ actually typed in the notes box.
 ## Endpoint
 
 ```
-POST https://pos.polishstation.lk/api/public/booking
+POST https://os.polishstation.lk/api/public/booking
 Content-Type: application/json
 ```
 
@@ -90,7 +90,7 @@ Always send this field, always `""` from a real visitor. Add a form field named 
 - Never reachable by Tab (`tabindex="-1"`).
 - Never labeled anything a real visitor would think to fill in.
 
-If it arrives non-empty, the server pretends the request succeeded (so a bot never learns it was caught) but doesn't actually create anything — so don't be alarmed if a `{ ok: true }` response doesn't show up in the POS; that's the honeypot working as intended, not a bug.
+If it arrives non-empty, the server pretends the request succeeded (so a bot never learns it was caught) but doesn't actually create anything — so don't be alarmed if a `{ ok: true }` response doesn't show up in the OS; that's the honeypot working as intended, not a bug.
 
 ## Response
 
@@ -103,11 +103,11 @@ Show `error` to the visitor on failure — the current copy on the site ("we'll 
 ## What NOT to do
 
 - Don't send a `timeWindow` or `serviceId` field — those are old field _names_ from a previous version of this contract and no longer exist. `preferredWindow` above is the current, different field for the same concept (time slot); sending the old names is harmless (extra fields aren't rejected) but pointless.
-- Don't try to book directly against the real appointment calendar — this endpoint deliberately creates a **request**, not a confirmed slot. Staff review and convert it into a real booking by hand from the POS.
+- Don't try to book directly against the real appointment calendar — this endpoint deliberately creates a **request**, not a confirmed slot. Staff review and convert it into a real booking by hand from the OS.
 - Don't rate-limit or dedupe on your end — the server already rate-limits by phone number (max 3 submissions per 10 minutes) and will return a friendly error if that's hit.
 
 ## Verifying it worked
 
-Submit a real test booking and confirm it shows up on the POS's Leads screen within a few seconds, with the correct services listed, the vehicle text, the preferred date rendering as a real date (not raw `YYYY-MM-DD` text or "Invalid Date"), the preferred time window showing correctly, and `notes` containing only what you actually typed in the notes box (no "Preferred time: ..." text appended). If it doesn't show up, check the browser network tab for the actual JSON response from `/api/public/booking` first — it will say exactly which field failed validation.
+Submit a real test booking and confirm it shows up on the OS's Leads screen within a few seconds, with the correct services listed, the vehicle text, the preferred date rendering as a real date (not raw `YYYY-MM-DD` text or "Invalid Date"), the preferred time window showing correctly, and `notes` containing only what you actually typed in the notes box (no "Preferred time: ..." text appended). If it doesn't show up, check the browser network tab for the actual JSON response from `/api/public/booking` first — it will say exactly which field failed validation.
 
-Please use a phone number and name that's obviously not a real customer (e.g. "Test — please delete") when testing against the live site, and let the POS side know once you've verified it so the test submission can be cleaned out of the production leads collection.
+Please use a phone number and name that's obviously not a real customer (e.g. "Test — please delete") when testing against the live site, and let the OS side know once you've verified it so the test submission can be cleaned out of the production leads collection.

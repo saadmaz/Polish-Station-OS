@@ -4,11 +4,11 @@
 
 <sub><a href="../../README.md">Project README</a> · <a href="../README.md">Documentation index</a></sub>
 
-> How the marketing site's contact form writes enquiries into the POS Firestore project so they appear on the Inquiries screen. Consumer: [Polish-Station-Website](https://github.com/saadmaz/Polish-Station-Website).
+> How the marketing site's contact form writes enquiries into the OS Firestore project so they appear on the Inquiries screen. Consumer: [Polish-Station-Website](https://github.com/saadmaz/Polish-Station-Website).
 
 ## Summary
 
-Wire the contact form on the marketing site to write directly into the Polish Station POS's Firestore project, so submissions show up on the "Inquiries" screen in the POS.
+Wire the contact form on the marketing site to write directly into the Polish Station OS's Firestore project, so submissions show up on the "Inquiries" screen in the OS.
 
 ## Firebase project
 
@@ -59,11 +59,11 @@ Validate these client-side before writing (matching the length bounds above) —
 
 ## What NOT to do
 
-- Don't try to read from the `inquiries` collection — the security rules only allow `create`, nothing else, from an unauthenticated visitor. Reads/updates/deletes are staff-only from the POS.
+- Don't try to read from the `inquiries` collection — the security rules only allow `create`, nothing else, from an unauthenticated visitor. Reads/updates/deletes are staff-only from the OS.
 - Don't send any field beyond the six listed above (not even an extra empty string field) — the rules reject writes with any unlisted key.
 - Don't set `createdAt` to anything but the actual submission time as an ISO-8601 string (not a Firestore Timestamp/serverTimestamp() — this collection stores plain ISO strings to match the rest of the app).
 
 ## Notes
 
 - There's currently no spam protection beyond the field/shape validation above (no App Check, no honeypot, no rate limiting) — acceptable for now, but worth revisiting if this collection starts attracting junk submissions.
-- The POS side already has a working "Inquiries" screen reading this collection, sorted newest-first, with tap-to-call and WhatsApp links built from `contactNumber`, and a delete action for staff — nothing further is needed from this repo beyond the write above.
+- The OS side already has a working "Inquiries" screen reading this collection, sorted newest-first, with tap-to-call and WhatsApp links built from `contactNumber`, and a delete action for staff — nothing further is needed from this repo beyond the write above.

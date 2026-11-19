@@ -2,11 +2,11 @@
 
 <div align="center">
 
-<img src=".github/assets/security.svg" alt="Polish Station POS: Security Policy" width="100%">
+<img src=".github/assets/security.svg" alt="Polish Station OS: Security Policy" width="100%">
 
 <br/>
 
-<p><strong>We take the security of Polish Station POS and the people who use it seriously. Thank you for helping keep them safe.</strong></p>
+<p><strong>We take the security of Polish Station OS and the people who use it seriously. Thank you for helping keep them safe.</strong></p>
 
 <a href="README.md"><img alt="README" src="https://img.shields.io/badge/README-374151?style=for-the-badge&labelColor=111827"></a>
 <a href="CONTRIBUTING.md"><img alt="Contributing" src="https://img.shields.io/badge/Contributing-374151?style=for-the-badge&labelColor=111827"></a>
@@ -24,11 +24,11 @@
 
 ## Reporting a vulnerability
 
-|              |                                                                                                                                                                                                                                              |
-| ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Email**    | [info@polishstation.lk](mailto:info@polishstation.lk?subject=Security%20report) with the subject line `Security report` or GitHub's [private vulnerability reporting](https://github.com/saadmaz/Polish-Station-POS/security/advisories/new) |
-| **Include**  | What the issue is and its impact · the affected URL, screen, endpoint or file · steps to reproduce or a proof of concept · any suggested fix                                                                                                 |
-| **Language** | English                                                                                                                                                                                                                                      |
+|              |                                                                                                                                                                                                                                             |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Email**    | [info@polishstation.lk](mailto:info@polishstation.lk?subject=Security%20report) with the subject line `Security report` or GitHub's [private vulnerability reporting](https://github.com/saadmaz/Polish-Station-OS/security/advisories/new) |
+| **Include**  | What the issue is and its impact · the affected URL, screen, endpoint or file · steps to reproduce or a proof of concept · any suggested fix                                                                                                |
+| **Language** | English                                                                                                                                                                                                                                     |
 
 <p align="right"><a href="#top">Back to top ↑</a></p>
 
@@ -71,7 +71,7 @@ We keep you informed throughout and tell you when the issue is resolved.
 <tr>
 <td valign="top">
 <ul>
-<li>www.pos.polishstation.lk and its subdomains</li>
+<li>os.polishstation.lk and its subdomains</li>
 <li>the application, its API, and its authentication and payment flows</li>
 <li>the deployment and infrastructure configuration in this repository</li>
 <li>the source code in this repository</li>

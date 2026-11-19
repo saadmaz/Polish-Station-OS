@@ -5,7 +5,7 @@ const page = await (await browser.newContext()).newPage();
 const mark = (l, t) => console.log(`${l}: ${Date.now() - t}ms`);
 
 let t = Date.now();
-await page.goto("https://pos.polishstation.lk/", { waitUntil: "domcontentloaded", timeout: 90000 });
+await page.goto("https://os.polishstation.lk/", { waitUntil: "domcontentloaded", timeout: 90000 });
 await page.waitForSelector("#username", { timeout: 60000 });
 mark("login screen ready", t);
 
